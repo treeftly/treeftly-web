@@ -1,9 +1,7 @@
-import { theme } from '@chakra-ui/core'
+import { extendTheme } from '@chakra-ui/react'
 
-export default {
-  ...theme,
+export default extendTheme({
   colors: {
-    ...theme.colors,
     brand: '#178578',
   },
-}
+})

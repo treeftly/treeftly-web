@@ -51,6 +51,5 @@
     "no-console": ["error", { "allow": ["warn", "error"]}],
     "import/no-unresolved": "off",
     "no-case-declarations": "off"
-  },
-  "ignorePatterns": ["src/serviceWorker.js"]
+  }
 }
