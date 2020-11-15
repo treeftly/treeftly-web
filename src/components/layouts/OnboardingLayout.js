@@ -9,7 +9,7 @@ const OnboardingLayout = ({ children }) => {
       borderRadius='sm'
       boxShadow='base'
       mx='auto'
-      minW='650px'
+      minW={['100%', '100%', '650px']}
       px='6'
       py='4'
     >
