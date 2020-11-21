@@ -48,7 +48,7 @@
     "object-curly-newline": ["error", { "consistent": true }],
     "react/button-has-type": "off",
     "indent": "off",
-    "no-console": ["error", { "allow": ["warn", "error"]}],
+    "no-console": ["warn", { "allow": ["warn", "error", "info"]}],
     "import/no-unresolved": "off",
     "no-case-declarations": "off"
   }

@@ -1,12 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Helmet } from 'react-helmet-async'
-import { FormControl, FormLabel, Input, Text, Link } from '@chakra-ui/react'
+import { FormControl, FormLabel, Input, Text, Link, Box } from '@chakra-ui/react'
 import { Link as RLink } from 'react-router-dom'
 import MainLayout from '../../components/layouts/MainLayout'
 import OnboardingLayout from '../../components/layouts/OnboardingLayout'
 import PasswordInput from '../../components/PasswordInput'
+import PasswordStrength from '../../components/PasswordStrength'
 
 const SignUp = () => {
+  const [password, setPassword] = useState('')
+
   return (
     <MainLayout>
       <Helmet>
@@ -28,13 +31,16 @@ const SignUp = () => {
           </FormControl>
           <FormControl id='password' mb={4} isRequired>
             <FormLabel>Password</FormLabel>
-            <PasswordInput />
-            <Text color='brand' mt={2}>
-              <Link to='/sign-in' as={RLink}>
-                Already a member?
-              </Link>
-            </Text>
+            <PasswordInput value={password} onChange={setPassword} />
+            <Box mt={1}>
+              <PasswordStrength value={password} />
+            </Box>
           </FormControl>
+          <Text color='brand' mt={2}>
+            <Link to='/sign-in' as={RLink}>
+              Already a member?
+            </Link>
+          </Text>
         </form>
       </OnboardingLayout>
     </MainLayout>
