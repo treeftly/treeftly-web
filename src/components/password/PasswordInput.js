@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, forwardRef } from 'react'
 import PropTypes from 'prop-types'
 import { InputGroup, Input, InputRightElement, IconButton } from '@chakra-ui/react'
 import { MdVisibility, MdVisibilityOff } from 'react-icons/md'
 
-const PasswordInput = ({ value, onChange }) => {
+const PasswordInput = forwardRef(({ value, onChange, name = 'password' }, ref) => {
   const [isShow, setIsShow] = useState(false)
 
   return (
@@ -12,6 +12,8 @@ const PasswordInput = ({ value, onChange }) => {
         type={isShow ? 'text' : 'password'}
         value={value}
         onChange={(evt) => onChange(evt.target.value)}
+        ref={ref}
+        name={name}
       />
       <InputRightElement>
         <IconButton
@@ -23,10 +25,11 @@ const PasswordInput = ({ value, onChange }) => {
       </InputRightElement>
     </InputGroup>
   )
-}
+})
 
 PasswordInput.propTypes = {
   value: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
   onChange: PropTypes.func,
 }
 
