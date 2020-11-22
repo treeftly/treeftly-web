@@ -7,11 +7,14 @@ const OnboardingLayout = ({ children }) => {
       border='1px'
       borderColor='gray.200'
       borderRadius='sm'
-      boxShadow='base'
+      boxShadow='md'
       mx='auto'
+      my={['16', '40']}
       minW={['100%', '100%', '650px']}
       px='6'
       py='4'
+      bg='white'
+      height='maxContent'
     >
       {children}
     </Container>
