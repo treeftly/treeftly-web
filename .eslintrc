@@ -32,9 +32,9 @@
     "comma-dangle": ["error", {
       "arrays": "only-multiline",
       "objects": "only-multiline",
-      "imports": "never",
-      "exports": "never",
-      "functions": "never"
+      "imports": "only-multiline",
+      "exports": "only-multiline",
+      "functions": "only-multiline"
     }],
     "global-require": "off",
     "jsx-a11y/label-has-associated-control": "off",

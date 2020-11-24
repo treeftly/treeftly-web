@@ -2,7 +2,7 @@ import auth0js from 'auth0-js'
 
 const DOMAIN = 'treeftly.au.auth0.com'
 const CLIENT_ID = '2pwY0huXbPVwxaz0GhD7Rx7jrTafU5TQ'
-const CONNECTION = 'Username-Password-Authentication"'
+const CONNECTION = 'Username-Password-Authentication'
 
 export const auth0 = new auth0js.WebAuth({
   domain: DOMAIN,
