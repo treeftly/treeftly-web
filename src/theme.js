@@ -1,6 +1,9 @@
 import { extendTheme } from '@chakra-ui/react'
 
 export default extendTheme({
+  fonts: {
+    montserrat: 'Montserrat, sans-serif',
+  },
   sizes: {
     fullVH: '100vh',
     maxContent: 'max-content',

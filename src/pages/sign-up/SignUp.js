@@ -8,7 +8,6 @@ import {
   Link,
   Box,
   Button,
-  Heading,
   FormErrorMessage,
 } from '@chakra-ui/react'
 import { Link as RLink } from 'react-router-dom'
@@ -42,7 +41,8 @@ const SignUp = () => {
             setError('email', { message: 'Email is already in use.' })
             break
           case 'invalid_password':
-            setError('password', { message: err.policy })
+            const message = err?.policy || err.description
+            setError('password', { message })
             break
           default:
             console.error('Signup error', JSON.stringify(err))
@@ -62,10 +62,7 @@ const SignUp = () => {
       <Helmet>
         <title>Sign Up</title>
       </Helmet>
-      <OnboardingLayout>
-        <Heading as='h1' textAlign='center' mb={2} color='primary.600'>
-          Sign Up {isSuccess && ` Success`}
-        </Heading>
+      <OnboardingLayout headerText={`Sign Up ${isSuccess ? 'Success' : ''}`}>
         <Text textAlign='center' mb={4} color='gray.600' whiteSpace='pre-line'>
           {isSuccess
             ? `We should've sent you a verification link to verify your account!
