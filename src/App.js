@@ -4,6 +4,7 @@ import { HelmetProvider } from 'react-helmet-async'
 
 const SignIn = lazy(() => import('./pages/sign-in/SignIn'))
 const SignUp = lazy(() => import('./pages/sign-up/SignUp'))
+const ForgotPassword = lazy(() => import('./pages/forgot-password/ForgotPassword'))
 
 const App = () => {
   return (
@@ -16,6 +17,9 @@ const App = () => {
             </Route>
             <Route exact path='/sign-up'>
               <SignUp />
+            </Route>
+            <Route exact path='/forgot-password'>
+              <ForgotPassword />
             </Route>
           </Switch>
         </HelmetProvider>

@@ -1,16 +1,6 @@
 import React, { useState } from 'react'
 import { Helmet } from 'react-helmet-async'
-import {
-  FormControl,
-  FormLabel,
-  Input,
-  Text,
-  Link,
-  Box,
-  Button,
-  FormErrorMessage,
-} from '@chakra-ui/react'
-import { Link as RLink } from 'react-router-dom'
+import { Input, Text, Box, Button } from '@chakra-ui/react'
 import { useForm } from 'react-hook-form'
 import MainLayout from '../../components/layouts/MainLayout'
 import OnboardingLayout from '../../components/layouts/OnboardingLayout'
@@ -18,14 +8,18 @@ import PasswordInput from '../../components/password/PasswordInput'
 import PasswordStrength from '../../components/password/PasswordStrength'
 import { auth0Signup } from '../../utils/auth0'
 import useToast from '../../utils/toast'
+import FormComponent from '../../components/FormComponent'
+import LinkText from '../../components/LinkText'
 
 const SignUp = () => {
   const [password, setPassword] = useState('')
   const [isSuccess, setIsSuccess] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const { register, handleSubmit, errors, setError } = useForm()
   const toast = useToast()
 
   const onSubmit = async (data) => {
+    setIsLoading(true)
     try {
       await auth0Signup(data)
       toast({
@@ -54,6 +48,8 @@ const SignUp = () => {
       return setError('firstName', {
         message: `Something went wrong with the request: ${err.name}`,
       })
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -72,39 +68,29 @@ const SignUp = () => {
         </Text>
         {!isSuccess && (
           <form onSubmit={handleSubmit(onSubmit)}>
-            <FormControl id='firstName' mb={4} isRequired isInvalid={errors?.firstName}>
-              <FormLabel>First Name</FormLabel>
+            <FormComponent id='firstName' mb={4} isRequired errors={errors} label='First Name'>
               <Input placeholder='John' autoFocus name='firstName' ref={register} />
-              <FormErrorMessage>{errors?.firstName?.message}</FormErrorMessage>
-            </FormControl>
-            <FormControl id='lastName' mb={4} isRequired isInvalid={errors?.lastName}>
-              <FormLabel>Last Name</FormLabel>
+            </FormComponent>
+            <FormComponent id='lastName' mb={4} isRequired errors={errors} label='Last Name'>
               <Input placeholder='Doe' ref={register} name='lastName' />
-              <FormErrorMessage>{errors?.lastName?.message}</FormErrorMessage>
-            </FormControl>
-            <FormControl id='email' mb={4} isRequired isInvalid={errors?.email}>
-              <FormLabel>Email Address</FormLabel>
+            </FormComponent>
+            <FormComponent id='email' mb={4} isRequired errors={errors} label='Email Address'>
               <Input type='email' placeholder='hello@treeftly.com' name='email' ref={register} />
-              <FormErrorMessage>{errors?.email?.message}</FormErrorMessage>
-            </FormControl>
-            <FormControl id='password' mb={4} isRequired isInvalid={errors?.password}>
-              <FormLabel>Password</FormLabel>
+            </FormComponent>
+            <FormComponent id='password' mb={4} isRequired errors={errors} label='Password'>
               <PasswordInput
                 value={password}
-                onChange={setPassword}
+                onChange={(evt) => setPassword(evt.target.value)}
                 name='password'
                 ref={register}
               />
               <Box mt={1}>
                 <PasswordStrength value={password} />
               </Box>
-              <FormErrorMessage whiteSpace='pre-line'>{errors?.password?.message}</FormErrorMessage>
-            </FormControl>
-            <Text color='primary.600' mt={2}>
-              <Link to='/sign-in' as={RLink}>
-                Already a member?
-              </Link>
-            </Text>
+            </FormComponent>
+            <LinkText mt={2} href='/sign-in'>
+              Already a member?
+            </LinkText>
             <Button
               mt={4}
               isFullWidth
@@ -112,6 +98,7 @@ const SignUp = () => {
               colorScheme='primary'
               textTransform='uppercase'
               type='submit'
+              isLoading={isLoading}
             >
               Sign Up
             </Button>
