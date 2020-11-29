@@ -13,7 +13,7 @@ const OnboardingLayout = ({ children, headerText }) => {
       <Container
         border='1px'
         borderColor='gray.200'
-        borderRadius='sm'
+        borderRadius='base'
         boxShadow='md'
         mx='auto'
         mb={['16', '20']}

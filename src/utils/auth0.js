@@ -28,3 +28,14 @@ export const auth0Signup = ({ email, firstName, lastName, password }) =>
       }
     )
   })
+
+export const auth0ForgotPassword = ({ email }) =>
+  new Promise((resolve, reject) => {
+    auth0.changePassword({ email, connection: CONNECTION }, (err, res) => {
+      if (err) {
+        return reject(err)
+      }
+
+      return resolve(res)
+    })
+  })
