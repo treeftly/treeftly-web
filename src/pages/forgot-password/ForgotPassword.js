@@ -5,8 +5,8 @@ import { useForm } from 'react-hook-form'
 import FormComponent from '../../components/FormComponent'
 import MainLayout from '../../components/layouts/MainLayout'
 import OnboardingLayout from '../../components/layouts/OnboardingLayout'
-import LinkText from '../../components/LinkText'
 import { auth0ForgotPassword } from '../../utils/auth0'
+import SuccessMessage from './SuccessMessage'
 
 const ForgotPassword = () => {
   const [isLoading, setIsLoading] = useState(false)
@@ -33,13 +33,7 @@ const ForgotPassword = () => {
       </Helmet>
       <OnboardingLayout headerText='Password Reset'>
         <Text textAlign='center' mb={4} color='gray.600' whiteSpace='pre-line'>
-          {successMsg ||
-            `Did you manage to remember your password?
-          Return to ${(
-            <LinkText href='/sign-in' d='inline-block' as='span'>
-              login
-            </LinkText>
-          )} page.`}
+          <SuccessMessage msg={successMsg} />
         </Text>
         {!successMsg && (
           <form onSubmit={handleSubmit(onSubmit)}>

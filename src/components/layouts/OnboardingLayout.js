@@ -1,5 +1,6 @@
 import React from 'react'
-import { Image, Heading } from '@chakra-ui/react'
+import { Image, Heading, Link } from '@chakra-ui/react'
+import { Link as RLink } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import Container from './Container'
 import LogoWithText from '../../assets/logo-with-text.png'
@@ -8,7 +9,9 @@ const OnboardingLayout = ({ children, headerText }) => {
   return (
     <>
       <Container height={['80px', '120px']} mt={['8', '16']} mb='4'>
-        <Image height='100%' mx='auto' src={LogoWithText} />
+        <Link to='/' as={RLink}>
+          <Image height='100%' mx='auto' src={LogoWithText} />
+        </Link>
       </Container>
       <Container
         border='1px'
