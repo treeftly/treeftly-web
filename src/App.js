@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from 'react'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 
 const SignIn = lazy(() => import('./pages/sign-in/SignIn'))
@@ -21,6 +21,7 @@ const App = () => {
             <Route exact path='/forgot-password'>
               <ForgotPassword />
             </Route>
+            <Redirect to='/sign-in' />
           </Switch>
         </HelmetProvider>
       </Suspense>
