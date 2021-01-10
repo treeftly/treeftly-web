@@ -5,25 +5,26 @@ import { useForm } from 'react-hook-form'
 import FormComponent from '../../components/FormComponent'
 import MainLayout from '../../components/layouts/MainLayout'
 import OnboardingLayout from '../../components/layouts/OnboardingLayout'
-import { auth0ForgotPassword } from '../../utils/auth0'
 import SuccessMessage from './SuccessMessage'
 
 const ForgotPassword = () => {
-  const [isLoading, setIsLoading] = useState(false)
-  const [successMsg, setSuccessMsg] = useState('')
+  // const [isLoading, setIsLoading] = useState(false)
+  const [isLoading] = useState(false)
+  // const [successMsg, setSuccessMsg] = useState('')
+  const [successMsg] = useState('')
   const { register, errors, handleSubmit } = useForm()
 
-  const onSubmit = async (data) => {
-    setIsLoading(true)
-
-    try {
-      const res = await auth0ForgotPassword({ email: data.email })
-      setSuccessMsg(res)
-    } catch (err) {
-      console.error('err', err)
-    } finally {
-      setIsLoading(false)
-    }
+  const onSubmit = async () => {
+    // setIsLoading(true)
+    // try {
+    //   console.log(data)
+    //   // const res = await auth0ForgotPassword({ email: data.email })
+    //   // setSuccessMsg(res)
+    // } catch (err) {
+    //   console.error('err', err)
+    // } finally {
+    //   setIsLoading(false)
+    // }
   }
 
   return (

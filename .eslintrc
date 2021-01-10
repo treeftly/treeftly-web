@@ -18,38 +18,81 @@
     "ecmaVersion": 11,
     "sourceType": "module"
   },
-  "plugins": ["react", "prettier"],
+  "plugins": [
+    "react",
+    "prettier"
+  ],
   "rules": {
-    "prettier/prettier": ["error", {
-      "singleQuote": true,
-      "printWidth": 100,
-      "semi": false,
-      "trailingComma": "es5",
-      "jsxSingleQuote": true
-    }],
-    "semi": ["error", "never"],
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-    "comma-dangle": ["error", {
-      "arrays": "only-multiline",
-      "objects": "only-multiline",
-      "imports": "only-multiline",
-      "exports": "only-multiline",
-      "functions": "only-multiline"
-    }],
+    "prettier/prettier": [
+      "error",
+      {
+        "singleQuote": true,
+        "printWidth": 100,
+        "semi": false,
+        "trailingComma": "es5",
+        "jsxSingleQuote": true
+      }
+    ],
+    "semi": [
+      "error",
+      "never"
+    ],
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [
+          ".js",
+          ".jsx"
+        ]
+      }
+    ],
+    "comma-dangle": [
+      "error",
+      {
+        "arrays": "only-multiline",
+        "objects": "only-multiline",
+        "imports": "only-multiline",
+        "exports": "only-multiline",
+        "functions": "only-multiline"
+      }
+    ],
     "global-require": "off",
     "jsx-a11y/label-has-associated-control": "off",
-    "react/prop-types": ["error", { "ignore": ["children", "className"] }],
+    "react/prop-types": [
+      "error",
+      {
+        "ignore": [
+          "children",
+          "className"
+        ]
+      }
+    ],
     "react/require-default-props": "off",
     "import/no-extraneous-dependencies": "off",
     "react/jsx-props-no-spreading": "off",
     "react/forbid-prop-types": "off",
     "react/no-array-index-key": "off",
     "react/jsx-one-expression-per-line": "off",
-    "object-curly-newline": ["error", { "consistent": true }],
+    "object-curly-newline": [
+      "error",
+      {
+        "consistent": true
+      }
+    ],
     "react/button-has-type": "off",
     "indent": "off",
-    "no-console": ["warn", { "allow": ["warn", "error", "info"]}],
+    "no-console": [
+      "warn",
+      {
+        "allow": [
+          "warn",
+          "error",
+          "info"
+        ]
+      }
+    ],
     "import/no-unresolved": "off",
+    "import/prefer-default-export": "off",
     "no-case-declarations": "off"
   }
 }

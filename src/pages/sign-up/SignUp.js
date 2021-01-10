@@ -6,8 +6,8 @@ import MainLayout from '../../components/layouts/MainLayout'
 import OnboardingLayout from '../../components/layouts/OnboardingLayout'
 import PasswordInput from '../../components/password/PasswordInput'
 import PasswordStrength from '../../components/password/PasswordStrength'
-import { auth0Signup } from '../../utils/auth0'
 import useToast from '../../utils/toast'
+import { register as authRegister } from '../../services/auth'
 import FormComponent from '../../components/FormComponent'
 import LinkText from '../../components/LinkText'
 
@@ -21,7 +21,7 @@ const SignUp = () => {
   const onSubmit = async (data) => {
     setIsLoading(true)
     try {
-      await auth0Signup(data)
+      await authRegister(data)
       toast({
         title: 'Account created!',
         description: 'Wohoo! Verify your email to start using Treeftly.',
@@ -29,24 +29,21 @@ const SignUp = () => {
       })
       return setIsSuccess(true)
     } catch (err) {
-      if (err?.statusCode === 400) {
-        switch (err.code) {
-          case 'invalid_signup':
-            setError('email', { message: 'Email is already in use.' })
-            break
-          case 'invalid_password':
-            const message = err?.policy || err.description
-            setError('password', { message })
+      if (err?.response?.status === 409) {
+        const { data: resData } = err.response
+        switch (resData.name) {
+          case 'unique constraint violation':
+            setError('email', { message: resData.message })
             break
           default:
             console.error('Signup error', JSON.stringify(err))
-            setError('firstName', { message: `Signup error: ${err.name}` })
+            setError('firstName', { message: `Signup error: ${resData.name}` })
         }
         return null
       }
 
       return setError('firstName', {
-        message: `Something went wrong with the request: ${err.name}`,
+        message: `Something went wrong with the request: ${err.response?.data?.name}`,
       })
     } finally {
       setIsLoading(false)
