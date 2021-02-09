@@ -33,7 +33,7 @@ const SignUp = () => {
         const { data: resData } = err.response
         switch (resData.name) {
           case 'unique constraint violation':
-            setError('email', { message: resData.message })
+            setError('email', { message: 'Email address already exists' })
             break
           default:
             console.error('Signup error', JSON.stringify(err))
@@ -57,11 +57,18 @@ const SignUp = () => {
       </Helmet>
       <OnboardingLayout headerText={`Sign Up ${isSuccess ? 'Success' : ''}`}>
         <Text textAlign='center' mb={4} color='gray.600' whiteSpace='pre-line'>
-          {isSuccess
-            ? `We should've sent you a verification link to verify your account!
-            Let's verify it and start using Treeftly!`
-            : `Hiya! We need your information so that you,
-            and only you can access your data!`}
+          {isSuccess ? (
+            <>
+              Please{' '}
+              <LinkText href='/sgin-in' as='span'>
+                sign in
+              </LinkText>{' '}
+              with your new account
+            </>
+          ) : (
+            `Hiya! We need your information so that you,
+            and only you can access your data!`
+          )}
         </Text>
         {!isSuccess && (
           <form onSubmit={handleSubmit(onSubmit)}>

@@ -32,9 +32,9 @@ const SignIn = () => {
           <FormComponent mb={4} id='password' label='Password' isRequired errors={errors}>
             <PasswordInput name='password' ref={register} />
           </FormComponent>
-          <LinkText mt={2} href='/forgot-password'>
+          {/* <LinkText mt={2} href='/forgot-password'>
             Forgot password?
-          </LinkText>
+          </LinkText> */}
           <Button
             mt={4}
             isFullWidth
