@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Input, Text, Box, Button } from '@chakra-ui/react'
 import { useForm } from 'react-hook-form'
+import { useMutation } from 'react-query'
 import MainLayout from '../../components/layouts/MainLayout'
 import OnboardingLayout from '../../components/layouts/OnboardingLayout'
 import PasswordInput from '../../components/password/PasswordInput'
@@ -10,25 +11,14 @@ import useToast from '../../utils/toast'
 import { register as authRegister } from '../../services/auth'
 import FormComponent from '../../components/FormComponent'
 import LinkText from '../../components/LinkText'
+import { errorLog } from '../../utils/logger'
 
 const SignUp = () => {
   const [password, setPassword] = useState('')
-  const [isSuccess, setIsSuccess] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
-  const { register, handleSubmit, errors, setError } = useForm()
   const toast = useToast()
-
-  const onSubmit = async (data) => {
-    setIsLoading(true)
-    try {
-      await authRegister(data)
-      toast({
-        title: 'Account created!',
-        description: 'Wohoo! Verify your email to start using Treeftly.',
-        status: 'success',
-      })
-      return setIsSuccess(true)
-    } catch (err) {
+  const { register, handleSubmit, errors, setError } = useForm()
+  const { mutate, isLoading, isSuccess } = useMutation(authRegister, {
+    onError: (err) => {
       if (err?.response?.status === 400) {
         const { data: resData } = err.response
         switch (resData.message) {
@@ -36,19 +26,25 @@ const SignUp = () => {
             setError('email', { message: 'Email address already exists' })
             break
           default:
-            console.error('Signup error', JSON.stringify(err))
+            errorLog('Signup error 400', JSON.stringify(err))
             setError('firstName', { message: `Signup error: ${resData.message}` })
         }
         return null
       }
 
+      errorLog('Signup error', err.response?.data)
       return setError('firstName', {
         message: `Something went wrong with the request: ${err.response?.data?.message}`,
       })
-    } finally {
-      setIsLoading(false)
-    }
-  }
+    },
+    onSuccess: () => {
+      toast({
+        title: 'Account created!',
+        description: 'Wohoo! You can now start using Treeftly.',
+        status: 'success',
+      })
+    },
+  })
 
   return (
     <MainLayout bg='gradientBg'>
@@ -71,7 +67,7 @@ const SignUp = () => {
           )}
         </Text>
         {!isSuccess && (
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(mutate)}>
             <FormComponent id='firstName' mb={4} isRequired errors={errors} label='First Name'>
               <Input placeholder='John' autoFocus name='firstName' ref={register} />
             </FormComponent>

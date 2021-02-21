@@ -2,6 +2,7 @@ import React from 'react'
 import { Button, Input, Text } from '@chakra-ui/react'
 import { Helmet } from 'react-helmet-async'
 import { useForm } from 'react-hook-form'
+import { useMutation } from 'react-query'
 import FormComponent from '../../components/FormComponent'
 import MainLayout from '../../components/layouts/MainLayout'
 import OnboardingLayout from '../../components/layouts/OnboardingLayout'
@@ -11,21 +12,16 @@ import { login } from '../../services/auth'
 
 const SignIn = () => {
   const { register, handleSubmit, errors, setError } = useForm()
-
-  const onSubmit = async (data) => {
-    try {
-      const payload = await login(data)
-      console.info('data', payload)
-      return null
-    } catch (err) {
+  const { mutate, isLoading } = useMutation(login, {
+    onError: (err) => {
       if (err?.response?.status === 401) {
         return setError('email', { message: 'Invalid email address or password' })
       }
 
       console.error(err.response?.data)
       return setError('email', { message: 'Something went wrong with your request ' })
-    }
-  }
+    },
+  })
 
   return (
     <MainLayout bg='gradientBg'>
@@ -41,7 +37,7 @@ const SignIn = () => {
           </LinkText>
           !
         </Text>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(mutate)}>
           <FormComponent mb={4} id='email' label='Email Address' isRequired errors={errors}>
             <Input name='email' placeholder='hello@treeftly.com' autoFocus ref={register} />
           </FormComponent>
@@ -58,6 +54,7 @@ const SignIn = () => {
             colorScheme='primary'
             textTransform='uppercase'
             type='submit'
+            isLoading={isLoading}
           >
             Sign In
           </Button>
