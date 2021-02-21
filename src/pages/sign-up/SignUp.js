@@ -29,21 +29,21 @@ const SignUp = () => {
       })
       return setIsSuccess(true)
     } catch (err) {
-      if (err?.response?.status === 409) {
+      if (err?.response?.status === 400) {
         const { data: resData } = err.response
-        switch (resData.name) {
-          case 'unique constraint violation':
+        switch (resData.message) {
+          case 'Validation error':
             setError('email', { message: 'Email address already exists' })
             break
           default:
             console.error('Signup error', JSON.stringify(err))
-            setError('firstName', { message: `Signup error: ${resData.name}` })
+            setError('firstName', { message: `Signup error: ${resData.message}` })
         }
         return null
       }
 
       return setError('firstName', {
-        message: `Something went wrong with the request: ${err.response?.data?.name}`,
+        message: `Something went wrong with the request: ${err.response?.data?.message}`,
       })
     } finally {
       setIsLoading(false)
