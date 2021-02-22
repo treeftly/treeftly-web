@@ -8,7 +8,7 @@ import Protected from './components/layouts/Protected'
 const SignIn = lazy(() => import('./pages/sign-in/SignIn'))
 const SignUp = lazy(() => import('./pages/sign-up/SignUp'))
 const ForgotPassword = lazy(() => import('./pages/forgot-password/ForgotPassword'))
-// const Dashboard = lazy(() => import('./pages/dashboard/Dashboard'))
+const Dashboard = lazy(() => import('./pages/dashboard/Dashboard'))
 
 const queryClient = new QueryClient()
 
@@ -30,10 +30,11 @@ const App = () => {
               <Route exact path='/forgot-password'>
                 <ForgotPassword />
               </Route>
-              {/* <Route exact path='/'>
-                <Dashboard />
-              </Route> */}
-              <Protected userData={userData} />
+              <Protected userData={userData}>
+                <Route exact path='/'>
+                  <Dashboard />
+                </Route>
+              </Protected>
             </Switch>
             <ReactQueryDevtools initialIsOpen={false} />
           </QueryClientProvider>
