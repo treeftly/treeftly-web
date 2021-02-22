@@ -1,16 +1,20 @@
-import React, { lazy, Suspense } from 'react'
+import React, { lazy, Suspense, useState } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
+import Protected from './components/layouts/Protected'
 
 const SignIn = lazy(() => import('./pages/sign-in/SignIn'))
 const SignUp = lazy(() => import('./pages/sign-up/SignUp'))
 const ForgotPassword = lazy(() => import('./pages/forgot-password/ForgotPassword'))
+// const Dashboard = lazy(() => import('./pages/dashboard/Dashboard'))
 
 const queryClient = new QueryClient()
 
 const App = () => {
+  const [userData, setUserData] = useState({ accessToken: '', user: {} })
+
   return (
     <BrowserRouter>
       <Suspense fallback={null}>
@@ -18,7 +22,7 @@ const App = () => {
           <QueryClientProvider client={queryClient}>
             <Switch>
               <Route exact path='/sign-in'>
-                <SignIn />
+                <SignIn onLogin={setUserData} />
               </Route>
               <Route exact path='/sign-up'>
                 <SignUp />
@@ -26,7 +30,10 @@ const App = () => {
               <Route exact path='/forgot-password'>
                 <ForgotPassword />
               </Route>
-              <Redirect to='/sign-in' />
+              {/* <Route exact path='/'>
+                <Dashboard />
+              </Route> */}
+              <Protected userData={userData} />
             </Switch>
             <ReactQueryDevtools initialIsOpen={false} />
           </QueryClientProvider>
