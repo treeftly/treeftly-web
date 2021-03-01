@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useState } from 'react'
+import React, { lazy, Suspense } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
@@ -13,8 +13,6 @@ const Dashboard = lazy(() => import('./pages/dashboard/Dashboard'))
 const queryClient = new QueryClient()
 
 const App = () => {
-  const [userData, setUserData] = useState({ accessToken: '', user: {} })
-
   return (
     <BrowserRouter>
       <Suspense fallback={null}>
@@ -22,7 +20,7 @@ const App = () => {
           <QueryClientProvider client={queryClient}>
             <Switch>
               <Route exact path='/sign-in'>
-                <SignIn onLogin={setUserData} />
+                <SignIn />
               </Route>
               <Route exact path='/sign-up'>
                 <SignUp />
@@ -30,7 +28,7 @@ const App = () => {
               <Route exact path='/forgot-password'>
                 <ForgotPassword />
               </Route>
-              <Protected userData={userData}>
+              <Protected>
                 <Route exact path='/'>
                   <Dashboard />
                 </Route>

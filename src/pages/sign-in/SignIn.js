@@ -3,7 +3,6 @@ import { Button, Input, Text } from '@chakra-ui/react'
 import { Helmet } from 'react-helmet-async'
 import { useForm } from 'react-hook-form'
 import { useMutation } from 'react-query'
-import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
 import FormComponent from '../../components/FormComponent'
 import MainLayout from '../../components/layouts/MainLayout'
@@ -11,9 +10,11 @@ import OnboardingLayout from '../../components/layouts/OnboardingLayout'
 import PasswordInput from '../../components/password/PasswordInput'
 import LinkText from '../../components/LinkText'
 import { login } from '../../services/auth'
+import { useAuth } from '../../utils/hooks'
 
-const SignIn = ({ onLogin = () => {} }) => {
+const SignIn = () => {
   const history = useHistory()
+  const { setAuthData } = useAuth()
   const { register, handleSubmit, errors, setError } = useForm()
   const { mutate, isLoading } = useMutation(login, {
     onError: (err) => {
@@ -25,7 +26,7 @@ const SignIn = ({ onLogin = () => {} }) => {
       return setError('email', { message: 'Something went wrong with your request ' })
     },
     onSuccess: ({ accessToken, user }) => {
-      onLogin({ accessToken, user })
+      setAuthData({ accessToken, user })
       history.push('/')
     },
   })
@@ -69,10 +70,6 @@ const SignIn = ({ onLogin = () => {} }) => {
       </OnboardingLayout>
     </MainLayout>
   )
-}
-
-SignIn.propTypes = {
-  onLogin: PropTypes.func,
 }
 
 export default SignIn

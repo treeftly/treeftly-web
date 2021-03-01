@@ -11,7 +11,7 @@ import useToast from '../../utils/toast'
 import { register as authRegister } from '../../services/auth'
 import FormComponent from '../../components/FormComponent'
 import LinkText from '../../components/LinkText'
-import { errorLog } from '../../utils/logger'
+import logger from '../../utils/logger'
 
 const SignUp = () => {
   const [password, setPassword] = useState('')
@@ -26,13 +26,13 @@ const SignUp = () => {
             setError('email', { message: 'Email address already exists' })
             break
           default:
-            errorLog('Signup error 400', JSON.stringify(err))
+            logger.error('Signup error 400', JSON.stringify(err))
             setError('firstName', { message: `Signup error: ${resData.message}` })
         }
         return null
       }
 
-      errorLog('Signup error', err.response?.data)
+      logger.error('Signup error', err.response?.data)
       return setError('firstName', {
         message: `Something went wrong with the request: ${err.response?.data?.message}`,
       })
