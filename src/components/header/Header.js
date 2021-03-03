@@ -1,4 +1,14 @@
-import { Avatar, Flex, Image, Link, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react'
+import {
+  Avatar,
+  Flex,
+  Image,
+  Link,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  Box,
+} from '@chakra-ui/react'
 import React from 'react'
 import { Link as RLink } from 'react-router-dom'
 import Logo from '../../assets/logo-only.png'
@@ -11,9 +21,11 @@ const Header = () => {
 
   return (
     <Flex as='header' border='1px' borderColor='gray.200' h='65px' px='10'>
-      <Link to='/' as={RLink}>
-        <Image height='100%' src={Logo} alt='treeftly logo' />
-      </Link>
+      <Box flexShrink={1} flexBasis='100px'>
+        <Link to='/' as={RLink}>
+          <Image height='100%' src={Logo} alt='treeftly logo' />
+        </Link>
+      </Box>
       <Nav />
       <Menu>
         <MenuButton>
