@@ -22,7 +22,7 @@ const Nav = () => {
     <Flex as='nav' align='center' flexGrow='1'>
       {links.map((link) => (
         <Link to={link.url} as={RLink} key={link.url} _hover={{ textDecoration: 'none' }} mr={6}>
-          <Heading size='md' as='h3'>
+          <Heading size='md' as='h3' fontWeight='normal'>
             {link.text}
           </Heading>
         </Link>
