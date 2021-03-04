@@ -11,6 +11,7 @@ const ForgotPassword = lazy(() => import('./pages/forgot-password/ForgotPassword
 const Dashboard = lazy(() => import('./pages/dashboard/Dashboard'))
 const Expenses = lazy(() => import('./pages/expenses/Expenses'))
 const Categories = lazy(() => import('./pages/categories/Categories'))
+const Profile = lazy(() => import('./pages/profile/Profile'))
 
 const queryClient = new QueryClient()
 
@@ -39,6 +40,9 @@ const App = () => {
                 </Route>
                 <Route exact path='/categories'>
                   <Categories />
+                </Route>
+                <Route exact path='/profile'>
+                  <Profile />
                 </Route>
               </Protected>
             </Switch>

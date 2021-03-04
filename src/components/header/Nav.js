@@ -19,9 +19,21 @@ const links = [
 
 const Nav = () => {
   return (
-    <Flex as='nav' align='center' flexGrow='1'>
+    <Flex
+      as='nav'
+      align={{ base: 'flex-start', lg: 'center' }}
+      flexGrow='1'
+      flexFlow={{ base: 'column', lg: 'row' }}
+    >
       {links.map((link) => (
-        <Link to={link.url} as={RLink} key={link.url} _hover={{ textDecoration: 'none' }} mr={6}>
+        <Link
+          to={link.url}
+          as={RLink}
+          key={link.url}
+          _hover={{ textDecoration: 'none' }}
+          mr={{ lg: 6 }}
+          mb={{ base: 3, lg: 0 }}
+        >
           <Heading size='md' as='h3' fontWeight='normal'>
             {link.text}
           </Heading>

@@ -15,6 +15,7 @@ const PasswordInput = forwardRef(({ name = 'password', ...rest }, ref) => {
           variant='outline'
           border='none'
           onClick={() => setIsShow(!isShow)}
+          aria-label={isShow ? 'hide password visibility' : 'show password visibility'}
         />
       </InputRightElement>
     </InputGroup>
