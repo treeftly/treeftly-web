@@ -8,8 +8,6 @@ import {
   MenuItem,
   MenuList,
   Box,
-  IconButton,
-  Tooltip,
 } from '@chakra-ui/react'
 import React from 'react'
 import { MdAdd } from 'react-icons/md'
@@ -17,6 +15,7 @@ import { Link as RLink } from 'react-router-dom'
 import Logo from '../../assets/logo-only.png'
 import { useAuth } from '../../utils/hooks'
 import Hidden from '../Hidden'
+import IconButton from '../IconButton'
 import Nav from './Nav'
 import SideNav from './SideNav'
 
@@ -30,7 +29,7 @@ const Header = () => {
         <SideNav />
       </Hidden>
       <Box flexShrink={1} flexBasis='100px'>
-        <Link to='/' as={RLink}>
+        <Link to='/' as={RLink} _focus={{ boxShadow: 'none' }}>
           <Image height='100%' src={Logo} alt='treeftly logo' />
         </Link>
       </Box>
@@ -39,17 +38,15 @@ const Header = () => {
       </Hidden>
       <Flex alignItems='center' ml='auto'>
         <Hidden below='lg'>
-          <Tooltip label='Create new expense' aria-label='tooltip to create new expense'>
-            <IconButton
-              icon={<MdAdd />}
-              onClick={console.info}
-              variant='outline'
-              fontSize='25px'
-              size='lg'
-              mr='5'
-              aria-label='Create new expense'
-            />
-          </Tooltip>
+          <IconButton
+            label='Create new expense'
+            ariaLabel='create new expense'
+            icon={<MdAdd />}
+            onClick={console.info}
+            variant='outline'
+            mr='5'
+            size='lg'
+          />
         </Hidden>
         <Menu>
           <MenuButton>

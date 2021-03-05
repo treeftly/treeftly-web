@@ -4,8 +4,6 @@ import {
   DrawerOverlay,
   DrawerHeader,
   Flex,
-  IconButton,
-  Tooltip,
   Image,
   useDisclosure,
   DrawerBody,
@@ -14,6 +12,7 @@ import { MdMenu } from 'react-icons/md'
 import React from 'react'
 import LogoText from '../../assets/logo-with-text.png'
 import Nav from './Nav'
+import IconButton from '../IconButton'
 
 const SideNav = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -21,15 +20,13 @@ const SideNav = () => {
   return (
     <>
       <Flex alignItems='center' mr='4'>
-        <Tooltip label='Open navigation' aria-label='tooltip to open side nav'>
-          <IconButton
-            aria-label='open navigation'
-            onClick={onOpen}
-            variant='ghost'
-            icon={<MdMenu />}
-            fontSize='25px'
-          />
-        </Tooltip>
+        <IconButton
+          label='Open navigation'
+          ariaLabel='open navigation'
+          onClick={onOpen}
+          variant='ghost'
+          icon={<MdMenu />}
+        />
       </Flex>
       <Drawer isOpen={isOpen} onClose={onClose} placement='left'>
         <DrawerOverlay>
