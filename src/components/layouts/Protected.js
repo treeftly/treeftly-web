@@ -6,6 +6,7 @@ import { useAuth } from '../../utils/hooks'
 import Footer from '../Footer'
 import Header from '../header/Header'
 import Hidden from '../Hidden'
+import MainLayout from './MainLayout'
 
 const getTitle = (pathname) => {
   if (!pathname) {
@@ -46,8 +47,15 @@ const Protected = ({ children }) => {
         <title>{title}</title>
       </Helmet>
       <Header />
-      <Box as='main' h={{ base: 'calc(100vh - 130px)', lg: 'calc(100vh - 65px)' }}>
-        {children}
+      <Box
+        as='main'
+        h={{ base: 'calc(100vh - 130px)', lg: 'calc(100vh - 65px)' }}
+        maxH={{ base: 'calc(100vh - 130px)', lg: 'calc(100vh - 65px)' }}
+        overflow='scroll'
+      >
+        <MainLayout minH='100%' bg='gray.100'>
+          {children}
+        </MainLayout>
       </Box>
       <Hidden above='md'>
         <Footer />

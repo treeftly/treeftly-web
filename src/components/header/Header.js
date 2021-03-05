@@ -24,7 +24,14 @@ const Header = () => {
   const name = `${authData?.user?.firstName} ${authData?.user?.lastName}`
 
   return (
-    <Flex as='header' border='1px' borderColor='gray.200' h='65px' px={{ base: '2', md: '10' }}>
+    <Flex
+      as='header'
+      border='1px'
+      borderColor='gray.200'
+      h='65px'
+      px={{ base: '2', md: '10' }}
+      bg='white'
+    >
       <Hidden above='md'>
         <SideNav />
       </Hidden>

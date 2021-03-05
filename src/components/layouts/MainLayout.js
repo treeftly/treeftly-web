@@ -4,7 +4,7 @@ import { Grid } from '@chakra-ui/react'
 const MainLayout = ({ children, ...rest }) => {
   return (
     <Grid
-      templateColumns='1fr min(90ch, 100%) 1fr'
+      templateColumns='1fr min(90ch, 98%) 1fr'
       templateRows='min-content'
       minH='fullVH'
       {...rest}

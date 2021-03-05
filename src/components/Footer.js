@@ -13,6 +13,7 @@ const Footer = () => {
       borderColor='gray.200'
       h='65px'
       pos='relative'
+      bg='white'
     >
       {/* Left part of the footer */}
       <Box />
