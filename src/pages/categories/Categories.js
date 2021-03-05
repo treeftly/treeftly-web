@@ -1,8 +1,11 @@
-import { Heading } from '@chakra-ui/react'
+import { Box, Button, Heading, Table, Tbody, Th, Thead, Tr, useDisclosure } from '@chakra-ui/react'
 import React from 'react'
 import Container from '../../components/layouts/Container'
+import CategoryRow from './CategoryRow'
+import NewCategory from './NewCategory'
 
 const Categories = () => {
+  const { onOpen, isOpen, onClose } = useDisclosure()
   return (
     <>
       <Container py={3}>
@@ -20,8 +23,25 @@ const Categories = () => {
         height='maxContent'
         mb={3}
       >
-        Categories
+        <Button colorScheme='primary' onClick={onOpen}>
+          Create New Category
+        </Button>
+        <Box mt={10}>
+          <Table>
+            <Thead>
+              <Tr>
+                <Th w='20px'>Label</Th>
+                <Th>Name</Th>
+                <Th w='20px' />
+              </Tr>
+            </Thead>
+            <Tbody>
+              <CategoryRow />
+            </Tbody>
+          </Table>
+        </Box>
       </Container>
+      <NewCategory isOpen={isOpen} onClose={onClose} />
     </>
   )
 }
