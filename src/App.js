@@ -44,6 +44,9 @@ const App = () => {
                 <Route exact path='/profile'>
                   <Profile />
                 </Route>
+                <Route exact path='/something-something/mahman'>
+                  <Profile />
+                </Route>
               </Protected>
             </Switch>
             <ReactQueryDevtools initialIsOpen={false} />
