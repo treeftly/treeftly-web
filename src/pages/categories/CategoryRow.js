@@ -1,5 +1,5 @@
 import React from 'react'
-import { Tr, Td, useDisclosure } from '@chakra-ui/react'
+import { Tr, Td, useDisclosure, Menu, MenuButton, MenuList } from '@chakra-ui/react'
 import { MdEdit } from 'react-icons/md'
 import IconButton from '../../components/IconButton'
 import ColorIcon from '../../components/color-swatch/ColorIcon'
@@ -11,11 +11,18 @@ const CategoryRow = () => {
     <Tr
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      onClick={() => console.log('edit')}
+      onClick={() => console.info('edit')}
       cursor='pointer'
     >
       <Td>
-        <ColorIcon color='yellow' />
+        <Menu>
+          <MenuButton as='div'>
+            <ColorIcon color='yellow' />
+          </MenuButton>
+          <MenuList p={4}>
+            <ColorIcon color='yellow' />
+          </MenuList>
+        </Menu>
       </Td>
       <Td>Food</Td>
       <Td>
