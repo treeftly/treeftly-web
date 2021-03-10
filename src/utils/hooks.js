@@ -1,22 +1,29 @@
 import { useState, useEffect } from 'react'
 import logger from './logger'
 
-const localStorageKey = 'auth'
+export const localStorageKey = 'auth'
 const defaultAuth = { user: {}, accessToken: '' }
 
+export const logout = () => {
+  localStorage.removeItem(localStorageKey)
+  window.location.href = '/'
+}
+
+export const getToken = () => {
+  const authStr = localStorage.getItem(localStorageKey)
+  let parsedAuth
+
+  try {
+    parsedAuth = JSON.parse(authStr)
+  } catch (err) {
+    logger.error('error parsing auth from localStorage: ', err)
+  }
+
+  return parsedAuth ?? defaultAuth
+}
+
 export const useAuth = () => {
-  const [authData, setAuthData] = useState(() => {
-    const authStr = localStorage.getItem(localStorageKey)
-    let parsedAuth
-
-    try {
-      parsedAuth = JSON.parse(authStr)
-    } catch (err) {
-      logger.error('error parsing auth from localStorage: ', err)
-    }
-
-    return parsedAuth ?? defaultAuth
-  })
+  const [authData, setAuthData] = useState(getToken)
 
   useEffect(() => {
     if (authData?.accessToken) {
@@ -26,9 +33,8 @@ export const useAuth = () => {
   }, [authData])
 
   const clearAuth = () => {
-    localStorage.removeItem(localStorageKey)
     setAuthData(defaultAuth)
-    window.location.href = '/'
+    logout()
   }
 
   return {

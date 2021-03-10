@@ -1,10 +1,11 @@
 import React from 'react'
 import { Tr, Td, useDisclosure, Menu, MenuButton, MenuList } from '@chakra-ui/react'
 import { MdEdit } from 'react-icons/md'
+import PropTypes from 'prop-types'
 import IconButton from '../../components/IconButton'
 import ColorIcon from '../../components/color-swatch/ColorIcon'
 
-const CategoryRow = () => {
+const CategoryRow = ({ data }) => {
   const { isOpen: isHovered, onOpen: onMouseEnter, onClose: onMouseLeave } = useDisclosure()
 
   return (
@@ -17,14 +18,14 @@ const CategoryRow = () => {
       <Td>
         <Menu>
           <MenuButton as='div'>
-            <ColorIcon color='yellow' />
+            <ColorIcon color={data.label} />
           </MenuButton>
           <MenuList p={4}>
             <ColorIcon color='yellow' />
           </MenuList>
         </Menu>
       </Td>
-      <Td>Food</Td>
+      <Td>{data.name}</Td>
       <Td>
         <IconButton
           opacity={isHovered ? '1' : '0'}
@@ -37,6 +38,10 @@ const CategoryRow = () => {
       </Td>
     </Tr>
   )
+}
+
+CategoryRow.propTypes = {
+  data: PropTypes.object,
 }
 
 export default CategoryRow

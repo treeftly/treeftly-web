@@ -1,11 +1,15 @@
 import { Box, Button, Heading, Table, Tbody, Th, Thead, Tr, useDisclosure } from '@chakra-ui/react'
 import React from 'react'
+import { useQuery } from 'react-query'
 import Container from '../../components/layouts/Container'
+import { listCategories } from '../../services/categories'
 import CategoryRow from './CategoryRow'
 import NewCategory from './NewCategory'
 
 const Categories = () => {
+  const { data: response } = useQuery('categories', listCategories)
   const { onOpen, isOpen, onClose } = useDisclosure()
+
   return (
     <>
       <Container py={3}>
@@ -36,7 +40,9 @@ const Categories = () => {
               </Tr>
             </Thead>
             <Tbody>
-              <CategoryRow />
+              {response?.data.map((category) => (
+                <CategoryRow data={category} key={category.id} />
+              ))}
             </Tbody>
           </Table>
         </Box>
