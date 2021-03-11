@@ -1,9 +1,9 @@
 import React from 'react'
-import { Tr, Td, useDisclosure, Menu, MenuButton, MenuList } from '@chakra-ui/react'
+import { Tr, Td, useDisclosure } from '@chakra-ui/react'
 import { MdEdit } from 'react-icons/md'
 import PropTypes from 'prop-types'
 import IconButton from '../../components/IconButton'
-import ColorIcon from '../../components/color-swatch/ColorIcon'
+import ColorSwatch from '../../components/color-swatch/ColorSwatch'
 
 const CategoryRow = ({ data }) => {
   const { isOpen: isHovered, onOpen: onMouseEnter, onClose: onMouseLeave } = useDisclosure()
@@ -16,25 +16,20 @@ const CategoryRow = ({ data }) => {
       cursor='pointer'
     >
       <Td>
-        <Menu>
-          <MenuButton as='div'>
-            <ColorIcon color={data.label} />
-          </MenuButton>
-          <MenuList p={4}>
-            <ColorIcon color='yellow' />
-          </MenuList>
-        </Menu>
+        <ColorSwatch selected={data.label} />
       </Td>
       <Td>{data.name}</Td>
       <Td>
-        <IconButton
-          opacity={isHovered ? '1' : '0'}
-          label='Edit Category'
-          ariaLabel='Edit category'
-          icon={<MdEdit />}
-          variant='ghost'
-          fontSize='20px'
-        />
+        {data.userId && (
+          <IconButton
+            opacity={isHovered ? '1' : '0'}
+            label='Edit Category'
+            ariaLabel='Edit category'
+            icon={<MdEdit />}
+            variant='ghost'
+            fontSize='20px'
+          />
+        )}
       </Td>
     </Tr>
   )

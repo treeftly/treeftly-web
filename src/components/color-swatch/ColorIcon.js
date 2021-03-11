@@ -3,7 +3,7 @@ import { MdBrightness1 } from 'react-icons/md'
 import PropTypes from 'prop-types'
 import IconButton from '../IconButton'
 
-const ColorIcon = ({ color }) => {
+const ColorIcon = ({ color, ...rest }) => {
   return (
     <IconButton
       label={color}
@@ -11,6 +11,7 @@ const ColorIcon = ({ color }) => {
       variant='ghost'
       icon={<MdBrightness1 />}
       color={color}
+      {...rest}
       isRound
     />
   )
