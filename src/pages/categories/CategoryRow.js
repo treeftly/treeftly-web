@@ -4,6 +4,7 @@ import { MdEdit } from 'react-icons/md'
 import PropTypes from 'prop-types'
 import IconButton from '../../components/IconButton'
 import ColorSwatch from '../../components/color-swatch/ColorSwatch'
+import ColorIcon from '../../components/color-swatch/ColorIcon'
 
 const CategoryRow = ({ data }) => {
   const { isOpen: isHovered, onOpen: onMouseEnter, onClose: onMouseLeave } = useDisclosure()
@@ -16,7 +17,7 @@ const CategoryRow = ({ data }) => {
       cursor='pointer'
     >
       <Td>
-        <ColorSwatch selected={data.label} />
+        {data.userId ? <ColorSwatch selected={data.label} /> : <ColorIcon color={data.label} />}
       </Td>
       <Td>{data.name}</Td>
       <Td>
