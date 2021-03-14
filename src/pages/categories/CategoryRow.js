@@ -8,14 +8,18 @@ import ColorIcon from '../../components/color-swatch/ColorIcon'
 
 const CategoryRow = ({ data }) => {
   const { isOpen: isHovered, onOpen: onMouseEnter, onClose: onMouseLeave } = useDisclosure()
+  // const { isOpen: isHovered } = useDisclosure()
+  // const { isOpen: isEditing, onToggle } = useDisclosure()
+  // console.log('isEditing', isEditing, data.name)
 
   return (
     <Tr
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      onClick={() => console.info('edit')}
+      onClick={() => console.info('clicked ', data.name)}
       cursor='pointer'
     >
+      {/* <Tr onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} onClick={onToggle} cursor='pointer'> */}
       <Td>
         {data.userId ? <ColorSwatch selected={data.label} /> : <ColorIcon color={data.label} />}
       </Td>
