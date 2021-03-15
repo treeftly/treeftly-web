@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import {
   Button,
+  Grid,
   Input,
   Modal,
   ModalBody,
@@ -10,65 +11,60 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  Table,
-  Tbody,
-  Td,
-  Th,
-  Thead,
-  Tr,
 } from '@chakra-ui/react'
+import { Controller, useForm } from 'react-hook-form'
+import { useMutation, useQueryClient } from 'react-query'
 import ColorSwatch from '../../components/color-swatch/ColorSwatch'
-
-const defaultColor = '#CBD5E0'
+import FormComponent from '../../components/FormComponent'
+import { createCategory } from '../../services/categories'
 
 const NewCategory = ({ isOpen = false, onClose = () => {} }) => {
-  const [selectedColor, setSelectedColor] = useState(defaultColor)
-  const [name, setName] = useState('')
-
-  const onModalClose = () => {
-    onClose()
-    setName('')
-    setSelectedColor(defaultColor)
-  }
+  const queryClient = useQueryClient()
+  const { register, handleSubmit, control, setValue } = useForm({
+    defaultValues: { label: '#CBD5E0', name: '' },
+  })
+  const { mutate } = useMutation(createCategory, {
+    onSuccess: () => {
+      queryClient.invalidateQueries('categories')
+    },
+    onSettled: () => {
+      onClose()
+    },
+  })
 
   return (
-    <Modal isOpen={isOpen} onClose={onModalClose} isCentered>
-      <ModalOverlay />
-      <ModalContent>
-        <ModalCloseButton />
-        <ModalHeader>New Category</ModalHeader>
-        <ModalBody>
-          <Table>
-            <Thead>
-              <Tr>
-                <Th w='20px'>Label</Th>
-                <Th>Name</Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              <Tr>
-                <Td>
-                  <ColorSwatch selected={selectedColor} onSelect={setSelectedColor} />
-                </Td>
-                <Td>
-                  <Input
-                    placeholder='Online courses'
-                    value={name}
-                    onChange={(evt) => setName(evt.target.value)}
-                    autoFocus
-                  />
-                </Td>
-              </Tr>
-            </Tbody>
-          </Table>
-        </ModalBody>
-        <ModalFooter>
-          <Button variant='ghost' mr={3} onClick={onClose}>
-            Cancel
-          </Button>
-          <Button colorScheme='primary'>Save</Button>
-        </ModalFooter>
-      </ModalContent>
+    <Modal isOpen={isOpen} onClose={onClose} isCentered>
+      <form onSubmit={handleSubmit(mutate)}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalCloseButton />
+          <ModalHeader>New Category</ModalHeader>
+          <ModalBody>
+            <Grid templateColumns='auto 1fr'>
+              <FormComponent id='label' isRequired label='Label'>
+                <Controller
+                  control={control}
+                  name='label'
+                  render={({ value }) => (
+                    <ColorSwatch selected={value} onSelect={(color) => setValue('label', color)} />
+                  )}
+                />
+              </FormComponent>
+              <FormComponent id='name' isRequired label='Name'>
+                <Input placeholder='Online courses' autoFocus ref={register} name='name' />
+              </FormComponent>
+            </Grid>
+          </ModalBody>
+          <ModalFooter>
+            <Button variant='ghost' mr={3} onClick={onClose}>
+              Cancel
+            </Button>
+            <Button colorScheme='primary' type='submit'>
+              Save
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </form>
     </Modal>
   )
 }
