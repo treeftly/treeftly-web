@@ -17,15 +17,29 @@ import { useMutation, useQueryClient } from 'react-query'
 import ColorSwatch from '../../components/color-swatch/ColorSwatch'
 import FormComponent from '../../components/FormComponent'
 import { createCategory } from '../../services/categories'
+import useToast from '../../utils/toast'
+import logger from '../../utils/logger'
 
 const NewCategory = ({ isOpen = false, onClose = () => {} }) => {
   const queryClient = useQueryClient()
+  const toast = useToast()
   const { register, handleSubmit, control, setValue } = useForm({
     defaultValues: { label: '#CBD5E0', name: '' },
   })
   const { mutate } = useMutation(createCategory, {
     onSuccess: () => {
       queryClient.invalidateQueries('categories')
+      toast({
+        title: 'Category created!',
+        status: 'success',
+      })
+    },
+    onError: (err) => {
+      toast({
+        title: 'Failed to create category',
+        status: 'error',
+      })
+      logger.error('Error creating new category', JSON.stringify(err))
     },
     onSettled: () => {
       onClose()
