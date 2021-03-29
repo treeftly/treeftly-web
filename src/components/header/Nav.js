@@ -8,8 +8,8 @@ const links = [
     text: 'Dashboard',
   },
   {
-    url: '/expenses',
-    text: 'Expenses',
+    url: '/transactions',
+    text: 'Transactions',
   },
   {
     url: '/categories',

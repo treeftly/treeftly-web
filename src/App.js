@@ -9,7 +9,7 @@ const SignIn = lazy(() => import('./pages/sign-in/SignIn'))
 const SignUp = lazy(() => import('./pages/sign-up/SignUp'))
 const ForgotPassword = lazy(() => import('./pages/forgot-password/ForgotPassword'))
 const Dashboard = lazy(() => import('./pages/dashboard/Dashboard'))
-const Expenses = lazy(() => import('./pages/expenses/Expenses'))
+const Transactions = lazy(() => import('./pages/transactions/Transactions'))
 const Categories = lazy(() => import('./pages/categories/Categories'))
 const Profile = lazy(() => import('./pages/profile/Profile'))
 
@@ -35,8 +35,8 @@ const App = () => {
                 <Route exact path='/'>
                   <Dashboard />
                 </Route>
-                <Route exact path='/expenses'>
-                  <Expenses />
+                <Route exact path='/transactions'>
+                  <Transactions />
                 </Route>
                 <Route exact path='/categories'>
                   <Categories />
