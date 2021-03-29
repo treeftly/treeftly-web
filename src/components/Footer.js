@@ -1,9 +1,10 @@
 import { Grid, Box } from '@chakra-ui/react'
 import { MdAdd } from 'react-icons/md'
 import React from 'react'
+import PropTypes from 'prop-types'
 import IconButton from './IconButton'
 
-const Footer = () => {
+const Footer = ({ onNewTransaction }) => {
   return (
     <Grid
       templateColumns='1fr 65px 1fr'
@@ -29,6 +30,7 @@ const Footer = () => {
           h='65px'
           w='65px'
           transform='translate(50%, -15%)'
+          onClick={onNewTransaction}
           colorScheme='primary'
         />
       </Box>
@@ -36,6 +38,10 @@ const Footer = () => {
       <Box />
     </Grid>
   )
+}
+
+Footer.propTypes = {
+  onNewTransaction: PropTypes.func,
 }
 
 export default Footer

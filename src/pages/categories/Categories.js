@@ -1,7 +1,8 @@
-import { Box, Button, Heading, Table, Tbody, Th, Thead, Tr, useDisclosure } from '@chakra-ui/react'
+import { Box, Button, Table, Tbody, Th, Thead, Tr, useDisclosure } from '@chakra-ui/react'
 import React from 'react'
 import { useQuery } from 'react-query'
-import Container from '../../components/layouts/Container'
+import PageLayout from '../../components/layouts/PageLayout'
+import PageHeader from '../../components/PageHeader'
 import { listCategories } from '../../services/categories'
 import CategoryRow from './CategoryRow'
 import NewCategory from './NewCategory'
@@ -12,21 +13,8 @@ const Categories = () => {
 
   return (
     <>
-      <Container py={3}>
-        <Heading size='lg'>Categories</Heading>
-      </Container>
-      <Container
-        border='1px'
-        borderColor='gray.200'
-        borderRadius='base'
-        boxShadow='md'
-        w='100%'
-        px='6'
-        py='4'
-        bg='white'
-        height='maxContent'
-        mb={3}
-      >
+      <PageHeader>Categories</PageHeader>
+      <PageLayout>
         <Button colorScheme='primary' onClick={onOpen}>
           Create New Category
         </Button>
@@ -46,7 +34,7 @@ const Categories = () => {
             </Tbody>
           </Table>
         </Box>
-      </Container>
+      </PageLayout>
       <NewCategory isOpen={isOpen} onClose={onClose} />
     </>
   )

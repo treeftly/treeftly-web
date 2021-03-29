@@ -1,11 +1,11 @@
-// import PropTypes from 'prop-types'
-import { Box } from '@chakra-ui/react'
+import { Box, useDisclosure } from '@chakra-ui/react'
 import { Helmet } from 'react-helmet-async'
 import React, { useHistory } from 'react-router-dom'
 import { useAuth } from '../../utils/hooks'
 import Footer from '../Footer'
 import Header from '../header/Header'
 import Hidden from '../Hidden'
+import TransactionModal from '../transaction-modal/TransactionModal'
 import MainLayout from './MainLayout'
 
 const getTitle = (pathname) => {
@@ -33,6 +33,7 @@ const getTitle = (pathname) => {
   return title
 }
 const Protected = ({ children }) => {
+  const { isOpen, onClose, onOpen } = useDisclosure()
   const history = useHistory()
   const { authData } = useAuth()
   const title = getTitle(history.location.pathname)
@@ -46,7 +47,7 @@ const Protected = ({ children }) => {
       <Helmet>
         <title>{title}</title>
       </Helmet>
-      <Header />
+      <Header onNewTransaction={onOpen} />
       <Box
         as='main'
         h={{ base: 'calc(100vh - 130px)', lg: 'calc(100vh - 65px)' }}
@@ -58,8 +59,9 @@ const Protected = ({ children }) => {
         </MainLayout>
       </Box>
       <Hidden above='md'>
-        <Footer />
+        <Footer onNewTransaction={onOpen} />
       </Hidden>
+      <TransactionModal isOpen={isOpen} onClose={onClose} />
     </>
   )
 }
