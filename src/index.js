@@ -5,6 +5,7 @@ import theme from './theme'
 import * as serviceWorker from './serviceWorker'
 import App from './App'
 
+console.log('theme', theme)
 ReactDOM.render(
   <React.StrictMode>
     <ChakraProvider theme={theme}>

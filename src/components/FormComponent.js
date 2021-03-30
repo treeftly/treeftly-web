@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 const FormComponent = ({ label, children, id, errors, ...rest }) => {
   return (
-    <FormControl id={id} {...rest} isInvalid={errors?.[id]}>
+    <FormControl id={id} {...rest} isInvalid={errors?.[id]} mb='4'>
       {label && <FormLabel>{label}</FormLabel>}
       {children}
       <FormErrorMessage whiteSpace='pre-line'>{errors?.[id]?.message}</FormErrorMessage>

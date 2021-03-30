@@ -68,16 +68,16 @@ const SignUp = () => {
         </Text>
         {!isSuccess && (
           <form onSubmit={handleSubmit(mutate)}>
-            <FormComponent id='firstName' mb={4} isRequired errors={errors} label='First Name'>
+            <FormComponent id='firstName' isRequired errors={errors} label='First Name'>
               <Input placeholder='John' autoFocus name='firstName' ref={register} />
             </FormComponent>
-            <FormComponent id='lastName' mb={4} isRequired errors={errors} label='Last Name'>
+            <FormComponent id='lastName' isRequired errors={errors} label='Last Name'>
               <Input placeholder='Doe' ref={register} name='lastName' />
             </FormComponent>
-            <FormComponent id='email' mb={4} isRequired errors={errors} label='Email Address'>
+            <FormComponent id='email' isRequired errors={errors} label='Email Address'>
               <Input type='email' placeholder='hello@treeftly.com' name='email' ref={register} />
             </FormComponent>
-            <FormComponent id='password' mb={4} isRequired errors={errors} label='Password'>
+            <FormComponent id='password' isRequired errors={errors} label='Password'>
               <PasswordInput
                 value={password}
                 onChange={(evt) => setPassword(evt.target.value)}
