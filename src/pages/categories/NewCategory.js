@@ -5,7 +5,7 @@ import { Controller, useForm } from 'react-hook-form'
 import { useMutation, useQueryClient } from 'react-query'
 import ColorSwatch from '../../components/color-swatch/ColorSwatch'
 import FormComponent from '../../components/FormComponent'
-import { createCategory } from '../../services/categories'
+import { createCategory, key } from '../../services/categories'
 import useToast from '../../utils/toast'
 import logger from '../../utils/logger'
 import FormModal from '../../components/modals/FormModal'
@@ -18,7 +18,7 @@ const NewCategory = ({ isOpen = false, onClose = () => {} }) => {
   })
   const { mutate } = useMutation(createCategory, {
     onSuccess: () => {
-      queryClient.invalidateQueries('categories')
+      queryClient.invalidateQueries(key)
       toast({
         title: 'Category created!',
         status: 'success',

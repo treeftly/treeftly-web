@@ -1,14 +1,13 @@
 import { Box, Button, Table, Tbody, Th, Thead, Tr, useDisclosure } from '@chakra-ui/react'
-import React from 'react'
-import { useQuery } from 'react-query'
+import React, { useContext } from 'react'
 import PageLayout from '../../components/layouts/PageLayout'
 import PageHeader from '../../components/PageHeader'
-import { listCategories } from '../../services/categories'
+import { CategoriesContext } from '../../services/categories'
 import CategoryRow from './CategoryRow'
 import NewCategory from './NewCategory'
 
 const Categories = () => {
-  const { data: response } = useQuery('categories', listCategories)
+  const categories = useContext(CategoriesContext)
   const { onOpen, isOpen, onClose } = useDisclosure()
 
   return (
@@ -28,7 +27,7 @@ const Categories = () => {
               </Tr>
             </Thead>
             <Tbody>
-              {response?.data.map((category) => (
+              {categories?.data.map((category) => (
                 <CategoryRow data={category} key={category.id} />
               ))}
             </Tbody>

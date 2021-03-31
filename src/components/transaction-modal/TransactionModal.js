@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import { useForm, Controller } from 'react-hook-form'
 import {
@@ -9,26 +9,56 @@ import {
   NumberInputStepper,
 } from '@chakra-ui/number-input'
 import { Textarea } from '@chakra-ui/textarea'
+import { useMutation } from 'react-query'
 import FormModal from '../modals/FormModal'
 import FormComponent from '../FormComponent'
 import DatePicker from '../DatePicker'
 import Select from '../Select'
+import { CategoriesContext } from '../../services/categories'
+import { createTransaction } from '../../services/transactions'
 
-const options = [
-  { value: 'chocolate', label: 'Chocolate' },
-  { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vanilla', label: 'Vanilla' },
-]
+const addDots = (defaultStyle, { data }) => ({
+  ...defaultStyle,
+  alignItems: 'center',
+  display: 'flex',
+  paddingTop: '6px',
+  paddingBottom: '6px',
+
+  ':before': {
+    backgroundColor: data?.label || '#FFF',
+    borderRadius: 15,
+    content: '" "',
+    display: 'block',
+    marginRight: 4,
+    height: 15,
+    width: 15,
+  },
+})
+
+const styles = {
+  input: addDots,
+  placeholder: addDots,
+  singleValue: addDots,
+  option: addDots,
+}
 
 const TransactionModal = ({ isOpen, onClose }) => {
+  const categories = useContext(CategoriesContext)
   const { control, register, errors, handleSubmit } = useForm({
     defaultValues: {
       date: new Date(),
-      category: options[1],
+      categoryId: '',
     },
   })
+  const { mutate } = useMutation(createTransaction, {
+    onError: (err) => {
+      console.error('err', err)
+    },
+  })
+
   const onSubmit = (data) => {
-    console.info('data', data)
+    const payload = { ...data, amount: parseFloat(data.amount), categoryId: data.categoryId.id }
+    mutate(payload)
   }
 
   return (
@@ -38,10 +68,11 @@ const TransactionModal = ({ isOpen, onClose }) => {
       onSubmit={handleSubmit(onSubmit)}
       header='New transaction'
     >
-      <FormComponent id='date' label='Date' errors={errors}>
+      <FormComponent id='date' label='Date' isRequired errors={errors}>
         <Controller
           name='date'
           control={control}
+          rules={{ required: 'date is required' }}
           render={({ onChange, value }) => (
             <DatePicker
               dateFormat='yyyy-MM-dd'
@@ -51,16 +82,25 @@ const TransactionModal = ({ isOpen, onClose }) => {
           )}
         />
       </FormComponent>
-      <FormComponent id='category' label='Category' errors={errors}>
+      <FormComponent id='categoryId' label='Category' isRequired errors={errors}>
         <Controller
-          name='category'
+          name='categoryId'
           control={control}
+          rules={{ required: 'category is required' }}
           render={({ value, onChange }) => (
-            <Select options={options} value={value} onChange={(selected) => onChange(selected)} />
+            <Select
+              placeholder='Select category'
+              options={categories?.data}
+              value={value}
+              onChange={(selected) => onChange(selected)}
+              getOptionLabel={(option) => option.name}
+              getOptionValue={(option) => option.id}
+              styles={styles}
+            />
           )}
         />
       </FormComponent>
-      <FormComponent id='amount' label='Amount' errors={errors}>
+      <FormComponent id='amount' label='Amount' isRequired errors={errors}>
         <NumberInput>
           <NumberInputField ref={register} name='amount' autoFocus />
           <NumberInputStepper>
