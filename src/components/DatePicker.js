@@ -24,7 +24,7 @@ const DatePicker = React.forwardRef(({ ...rest }, ref) => {
         },
       }}
     >
-      <SDatePicker {...rest} ref={ref} />
+      <SDatePicker todayButton='today' {...rest} ref={ref} />
     </Box>
   )
 })
