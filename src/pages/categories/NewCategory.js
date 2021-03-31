@@ -2,38 +2,22 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Grid, Input } from '@chakra-ui/react'
 import { Controller, useForm } from 'react-hook-form'
-import { useMutation, useQueryClient } from 'react-query'
 import ColorSwatch from '../../components/color-swatch/ColorSwatch'
 import FormComponent from '../../components/FormComponent'
 import { createCategory, key } from '../../services/categories'
-import useToast from '../../utils/toast'
-import logger from '../../utils/logger'
 import FormModal from '../../components/modals/FormModal'
+import { useMutate } from '../../utils/hooks'
 
 const NewCategory = ({ isOpen = false, onClose = () => {} }) => {
-  const queryClient = useQueryClient()
-  const toast = useToast()
   const { register, handleSubmit, control, setValue } = useForm({
     defaultValues: { label: '#CBD5E0', name: '' },
   })
-  const { mutate } = useMutation(createCategory, {
-    onSuccess: () => {
-      queryClient.invalidateQueries(key)
-      toast({
-        title: 'Category created!',
-        status: 'success',
-      })
-    },
-    onError: (err) => {
-      toast({
-        title: 'Failed to create category',
-        status: 'error',
-      })
-      logger.error('Error creating new category', JSON.stringify(err))
-    },
-    onSettled: () => {
-      onClose()
-    },
+  const { mutate } = useMutate({
+    mutateFn: createCategory,
+    key,
+    successMsg: 'Category created!',
+    failureMsg: 'Failed to create category.',
+    onSettled: onClose,
   })
 
   return (

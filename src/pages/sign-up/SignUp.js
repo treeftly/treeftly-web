@@ -2,22 +2,22 @@ import React, { useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Input, Text, Box, Button } from '@chakra-ui/react'
 import { useForm } from 'react-hook-form'
-import { useMutation } from 'react-query'
 import MainLayout from '../../components/layouts/MainLayout'
 import OnboardingLayout from '../../components/layouts/OnboardingLayout'
 import PasswordInput from '../../components/password/PasswordInput'
 import PasswordStrength from '../../components/password/PasswordStrength'
-import useToast from '../../utils/toast'
 import { register as authRegister } from '../../services/auth'
 import FormComponent from '../../components/FormComponent'
 import LinkText from '../../components/LinkText'
-import logger from '../../utils/logger'
+import { useMutate } from '../../utils/hooks'
 
 const SignUp = () => {
   const [password, setPassword] = useState('')
-  const toast = useToast()
   const { register, handleSubmit, errors, setError } = useForm()
-  const { mutate, isLoading, isSuccess } = useMutation(authRegister, {
+  const { mutate, isLoading, isSuccess } = useMutate({
+    mutateFn: authRegister,
+    successMsg: 'Account created!',
+    successDescription: 'Wohoo! You can now start using Treeftly.',
     onError: (err) => {
       if (err?.response?.status === 400) {
         const { data: resData } = err.response
@@ -26,25 +26,44 @@ const SignUp = () => {
             setError('email', { message: 'Email address already exists' })
             break
           default:
-            logger.error('Signup error 400', JSON.stringify(err))
             setError('firstName', { message: `Signup error: ${resData.message}` })
         }
         return null
       }
 
-      logger.error('Signup error', err.response?.data)
       return setError('firstName', {
         message: `Something went wrong with the request: ${err.response?.data?.message}`,
       })
     },
-    onSuccess: () => {
-      toast({
-        title: 'Account created!',
-        description: 'Wohoo! You can now start using Treeftly.',
-        status: 'success',
-      })
-    },
   })
+  // const { mutate, isLoading, isSuccess } = useMutation(authRegister, {
+  //   onError: (err) => {
+  //     if (err?.response?.status === 400) {
+  //       const { data: resData } = err.response
+  //       switch (resData.message) {
+  //         case 'Validation error':
+  //           setError('email', { message: 'Email address already exists' })
+  //           break
+  //         default:
+  //           logger.error('Signup error 400', JSON.stringify(err))
+  //           setError('firstName', { message: `Signup error: ${resData.message}` })
+  //       }
+  //       return null
+  //     }
+
+  //     logger.error('Signup error', err.response?.data)
+  //     return setError('firstName', {
+  //       message: `Something went wrong with the request: ${err.response?.data?.message}`,
+  //     })
+  //   },
+  //   onSuccess: () => {
+  //     toast({
+  //       title: 'Account created!',
+  //       description: 'Wohoo! You can now start using Treeftly.',
+  //       status: 'success',
+  //     })
+  //   },
+  // })
 
   return (
     <MainLayout bg='gradientBg'>

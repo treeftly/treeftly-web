@@ -2,7 +2,6 @@ import React from 'react'
 import { Button, Input, Text } from '@chakra-ui/react'
 import { Helmet } from 'react-helmet-async'
 import { useForm } from 'react-hook-form'
-import { useMutation } from 'react-query'
 import { useHistory } from 'react-router-dom'
 import FormComponent from '../../components/FormComponent'
 import MainLayout from '../../components/layouts/MainLayout'
@@ -10,19 +9,19 @@ import OnboardingLayout from '../../components/layouts/OnboardingLayout'
 import PasswordInput from '../../components/password/PasswordInput'
 import LinkText from '../../components/LinkText'
 import { login } from '../../services/auth'
-import { useAuth } from '../../utils/hooks'
+import { useAuth, useMutate } from '../../utils/hooks'
 
 const SignIn = () => {
   const history = useHistory()
   const { setAuthData } = useAuth()
   const { register, handleSubmit, errors, setError } = useForm()
-  const { mutate, isLoading } = useMutation(login, {
+  const { mutate, isLoading } = useMutate({
+    mutateFn: login,
     onError: (err) => {
       if (err?.response?.status === 401) {
         return setError('email', { message: 'Invalid email address or password' })
       }
 
-      console.error(err.response?.data)
       return setError('email', { message: 'Something went wrong with your request ' })
     },
     onSuccess: ({ accessToken, user }) => {

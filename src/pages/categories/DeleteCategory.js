@@ -9,27 +9,16 @@ import {
   ModalHeader,
   ModalOverlay,
 } from '@chakra-ui/modal'
-import { useMutation, useQueryClient } from 'react-query'
 import { Button } from '@chakra-ui/button'
-import { deleteCategory } from '../../services/categories'
-import useToast from '../../utils/toast'
-import logger from '../../utils/logger'
+import { deleteCategory, key } from '../../services/categories'
+import { useMutate } from '../../utils/hooks'
 
 const DeleteCategory = ({ isOpen, onClose, data }) => {
-  const queryClient = useQueryClient()
-  const toast = useToast()
-  const { mutate } = useMutation(deleteCategory, {
-    onSuccess: () => {
-      queryClient.invalidateQueries('categories')
-      toast({
-        title: 'Successfully deleted category',
-        status: 'success',
-      })
-    },
-    onError: (err) => {
-      toast({ title: 'Failed to delete category', status: 'error' })
-      logger.error('Error deleting category', JSON.stringify(err))
-    },
+  const { mutate } = useMutate({
+    mutateFn: deleteCategory,
+    key,
+    successMsg: 'Successfully deleted category!',
+    failureMsg: 'Failed to delete category',
   })
 
   return (

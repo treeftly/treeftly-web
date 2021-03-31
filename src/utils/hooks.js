@@ -1,8 +1,12 @@
 import { useState, useEffect } from 'react'
+import { useMutation, useQueryClient } from 'react-query'
 import logger from './logger'
+import useToast from './toast'
+
+const defaultAuth = { user: {}, accessToken: '' }
+const noop = () => {}
 
 export const localStorageKey = 'auth'
-const defaultAuth = { user: {}, accessToken: '' }
 
 export const logout = () => {
   localStorage.removeItem(localStorageKey)
@@ -41,5 +45,82 @@ export const useAuth = () => {
     authData,
     setAuthData,
     clearAuth,
+  }
+}
+
+export const useMutate = ({
+  mutateFn,
+  key,
+  successMsg = '',
+  successDescription = '',
+  failureMsg = '',
+  failureDescription = '',
+  onSuccess = noop,
+  onError = noop,
+  onSettled = noop,
+}) => {
+  if (!mutateFn) {
+    throw new Error('Missing argument')
+  }
+
+  const queryClient = useQueryClient()
+  const toast = useToast()
+  const {
+    data,
+    error,
+    isError,
+    isIdle,
+    isLoading,
+    isPaused,
+    isSuccess,
+    mutate,
+    mutateAsync,
+    reset,
+    status,
+  } = useMutation(mutateFn, {
+    onSuccess: (response) => {
+      if (key) {
+        queryClient.invalidateQueries(key)
+      }
+      onSuccess(response)
+
+      if (successMsg !== '') {
+        toast({
+          title: successMsg,
+          description: successDescription,
+          status: 'success',
+        })
+      }
+    },
+    onError: (err) => {
+      onError(err)
+
+      if (failureMsg !== '') {
+        toast({
+          title: failureMsg,
+          description: failureDescription,
+          status: 'error',
+        })
+      }
+
+      logger.error('Error on mutation', JSON.stringify(err))
+    },
+    onSettled: () => {
+      onSettled()
+    },
+  })
+
+  return {
+    data,
+    error,
+    isError,
+    isIdle,
+    isLoading,
+    isPaused,
+    isSuccess,
+    mutate,
+    mutateAsync,
+    reset,
+    status,
   }
 }

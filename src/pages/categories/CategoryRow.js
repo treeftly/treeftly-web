@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { Tr, Td, useDisclosure, Box, Input } from '@chakra-ui/react'
 import PropTypes from 'prop-types'
-import { useMutation, useQueryClient } from 'react-query'
 import ColorSwatch from '../../components/color-swatch/ColorSwatch'
 import ColorIcon from '../../components/color-swatch/ColorIcon'
 import DeleteCategory from './DeleteCategory'
 import CategoryButtons from './CategoryButtons'
-import useToast from '../../utils/toast'
-import { updateCategory } from '../../services/categories'
-import logger from '../../utils/logger'
+import { updateCategory, key } from '../../services/categories'
+import { useMutate } from '../../utils/hooks'
 
 const CategoryRow = ({ data }) => {
   const { isOpen: isHovered, onOpen: onMouseEnter, onClose: onMouseLeave } = useDisclosure()
@@ -16,26 +14,12 @@ const CategoryRow = ({ data }) => {
   const { isOpen: isEditing, onOpen: onEdit, onClose: onEditCancel } = useDisclosure()
   const [labelValue, setLabelValue] = useState(data.label)
   const [nameValue, setNameValue] = useState(data.name)
-  const queryClient = useQueryClient()
-  const toast = useToast()
-  const { mutate } = useMutation(updateCategory, {
-    onSuccess: () => {
-      queryClient.invalidateQueries('categories')
-      toast({
-        title: 'Category updated!',
-        status: 'success',
-      })
-    },
-    onError: (err) => {
-      toast({
-        title: 'Failed to update category',
-        status: 'error',
-      })
-      logger.error('Error update new category', JSON.stringify(err))
-    },
-    onSettled: () => {
-      onEditCancel()
-    },
+  const { mutate } = useMutate({
+    mutateFn: updateCategory,
+    key,
+    successMsg: 'Category updated!',
+    failureMsg: 'Failed to update category',
+    onSettled: onEditCancel,
   })
 
   const onCancel = () => {

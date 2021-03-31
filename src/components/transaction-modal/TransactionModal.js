@@ -9,13 +9,13 @@ import {
   NumberInputStepper,
 } from '@chakra-ui/number-input'
 import { Textarea } from '@chakra-ui/textarea'
-import { useMutation } from 'react-query'
 import FormModal from '../modals/FormModal'
 import FormComponent from '../FormComponent'
 import DatePicker from '../DatePicker'
 import Select from '../Select'
 import { CategoriesContext } from '../../services/categories'
-import { createTransaction } from '../../services/transactions'
+import { createTransaction, key } from '../../services/transactions'
+import { useMutate } from '../../utils/hooks'
 
 const addDots = (defaultStyle, { data }) => ({
   ...defaultStyle,
@@ -50,10 +50,12 @@ const TransactionModal = ({ isOpen, onClose }) => {
       categoryId: '',
     },
   })
-  const { mutate } = useMutation(createTransaction, {
-    onError: (err) => {
-      console.error('err', err)
-    },
+  const { mutate } = useMutate({
+    mutateFn: createTransaction,
+    key,
+    successMsg: 'Successfully created transaction!',
+    failureMsg: 'Error creating transaction',
+    onSettled: onClose,
   })
 
   const onSubmit = (data) => {
