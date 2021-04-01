@@ -36,34 +36,6 @@ const SignUp = () => {
       })
     },
   })
-  // const { mutate, isLoading, isSuccess } = useMutation(authRegister, {
-  //   onError: (err) => {
-  //     if (err?.response?.status === 400) {
-  //       const { data: resData } = err.response
-  //       switch (resData.message) {
-  //         case 'Validation error':
-  //           setError('email', { message: 'Email address already exists' })
-  //           break
-  //         default:
-  //           logger.error('Signup error 400', JSON.stringify(err))
-  //           setError('firstName', { message: `Signup error: ${resData.message}` })
-  //       }
-  //       return null
-  //     }
-
-  //     logger.error('Signup error', err.response?.data)
-  //     return setError('firstName', {
-  //       message: `Something went wrong with the request: ${err.response?.data?.message}`,
-  //     })
-  //   },
-  //   onSuccess: () => {
-  //     toast({
-  //       title: 'Account created!',
-  //       description: 'Wohoo! You can now start using Treeftly.',
-  //       status: 'success',
-  //     })
-  //   },
-  // })
 
   return (
     <MainLayout bg='gradientBg'>

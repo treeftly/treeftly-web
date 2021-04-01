@@ -79,10 +79,10 @@ export const useMutate = ({
     status,
   } = useMutation(mutateFn, {
     onSuccess: (response) => {
+      onSuccess(response)
       if (key) {
         queryClient.invalidateQueries(key)
       }
-      onSuccess(response)
 
       if (successMsg !== '') {
         toast({

@@ -10,6 +10,7 @@ import {
   ModalOverlay,
 } from '@chakra-ui/modal'
 import { Button } from '@chakra-ui/button'
+import { Text } from '@chakra-ui/layout'
 import { deleteCategory, key } from '../../services/categories'
 import { useMutate } from '../../utils/hooks'
 
@@ -28,7 +29,10 @@ const DeleteCategory = ({ isOpen, onClose, data }) => {
         <ModalCloseButton />
         <ModalHeader>Delete Category</ModalHeader>
         <ModalBody>
-          Are you sure you want to delete category <strong>{data.name}</strong>?
+          <Text>
+            This will remove all transactions attached to this category. Are you sure you want to
+            delete category <strong>{data.name}</strong>?
+          </Text>
         </ModalBody>
         <ModalFooter>
           <Button variant='ghost' mr={3} onClick={onClose}>
