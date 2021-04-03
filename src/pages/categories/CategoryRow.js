@@ -38,38 +38,36 @@ const CategoryRow = ({ data }) => {
   }, [data])
 
   return (
-    <>
-      <Tr onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} cursor='pointer'>
-        <Td>
-          {data.userId && isEditing ? (
-            <ColorSwatch selected={labelValue} onSelect={setLabelValue} />
-          ) : (
-            <ColorIcon color={data.label} />
-          )}
-        </Td>
-        <Td>
-          {isEditing ? (
-            <Input value={nameValue} onChange={(evt) => setNameValue(evt.target.value)} autoFocus />
-          ) : (
-            data.name
-          )}
-        </Td>
-        <Td>
-          <Box display='flex'>
-            <CategoryButtons
-              isEditing={isEditing}
-              isHovered={isHovered}
-              data={data}
-              onDelete={onDeleteOpen}
-              onEdit={onEdit}
-              onEditCancel={onCancel}
-              onSave={onSave}
-            />
-          </Box>
-        </Td>
-      </Tr>
-      <DeleteCategory isOpen={isDeleteOpen} onClose={onDeleteClose} data={data} />
-    </>
+    <Tr onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} cursor='pointer'>
+      <Td>
+        {data.userId && isEditing ? (
+          <ColorSwatch selected={labelValue} onSelect={setLabelValue} />
+        ) : (
+          <ColorIcon color={data.label} />
+        )}
+      </Td>
+      <Td>
+        {isEditing ? (
+          <Input value={nameValue} onChange={(evt) => setNameValue(evt.target.value)} autoFocus />
+        ) : (
+          data.name
+        )}
+      </Td>
+      <Td>
+        <Box display='flex'>
+          <CategoryButtons
+            isEditing={isEditing}
+            isHovered={isHovered}
+            data={data}
+            onDelete={onDeleteOpen}
+            onEdit={onEdit}
+            onEditCancel={onCancel}
+            onSave={onSave}
+          />
+          <DeleteCategory isOpen={isDeleteOpen} onClose={onDeleteClose} data={data} />
+        </Box>
+      </Td>
+    </Tr>
   )
 }
 

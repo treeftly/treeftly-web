@@ -1,20 +1,20 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import PropTypes from 'prop-types'
 import {
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogCloseButton,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogOverlay,
 } from '@chakra-ui/modal'
 import { Button } from '@chakra-ui/button'
-import { Text } from '@chakra-ui/layout'
 import { deleteCategory, key } from '../../services/categories'
 import { useMutate } from '../../utils/hooks'
 
 const DeleteCategory = ({ isOpen, onClose, data }) => {
+  const ref = useRef()
   const { mutate } = useMutate({
     mutateFn: deleteCategory,
     key,
@@ -23,27 +23,29 @@ const DeleteCategory = ({ isOpen, onClose, data }) => {
   })
 
   return (
-    <Modal isCentered isOpen={isOpen} onClose={onClose}>
-      <ModalOverlay />
-      <ModalContent>
-        <ModalCloseButton />
-        <ModalHeader>Delete Category</ModalHeader>
-        <ModalBody>
-          <Text>
+    <AlertDialog isOpen={isOpen} onClose={onClose} leastDestructiveRef={ref}>
+      <AlertDialogOverlay>
+        <AlertDialogContent>
+          <AlertDialogHeader fontSize='lg' fontWeight='bold'>
+            Delete Category
+          </AlertDialogHeader>
+          <AlertDialogCloseButton />
+          <AlertDialogBody>
             This will remove all transactions attached to this category. Are you sure you want to
             delete category <strong>{data.name}</strong>?
-          </Text>
-        </ModalBody>
-        <ModalFooter>
-          <Button variant='ghost' mr={3} onClick={onClose}>
-            Cancel
-          </Button>
-          <Button colorScheme='primary' onClick={() => mutate(data.id)}>
-            Delete
-          </Button>
-        </ModalFooter>
-      </ModalContent>
-    </Modal>
+          </AlertDialogBody>
+
+          <AlertDialogFooter>
+            <Button onClick={onClose} ref={ref}>
+              Cancel
+            </Button>
+            <Button colorScheme='red' onClick={() => mutate(data.id)} ml={3}>
+              Delete
+            </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialogOverlay>
+    </AlertDialog>
   )
 }
 
