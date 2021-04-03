@@ -35,7 +35,7 @@ const App = () => {
                 <Route exact path='/'>
                   <Dashboard />
                 </Route>
-                <Route exact path='/transactions'>
+                <Route path='/transactions'>
                   <Transactions />
                 </Route>
                 <Route exact path='/categories'>

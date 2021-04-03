@@ -2,13 +2,14 @@ import { Box, useDisclosure } from '@chakra-ui/react'
 import { Helmet } from 'react-helmet-async'
 import React, { useHistory } from 'react-router-dom'
 import { useQuery } from 'react-query'
-import { useAuth } from '../../utils/hooks'
+import { useAuth, useMutate } from '../../utils/hooks'
 import Footer from '../Footer'
 import Header from '../header/Header'
 import { listCategories, CategoriesContext, key } from '../../services/categories'
 import Hidden from '../Hidden'
 import TransactionModal from '../transaction-modal/TransactionModal'
 import MainLayout from './MainLayout'
+import { createTransaction, key as transactionKey } from '../../services/transactions'
 
 const getTitle = (pathname) => {
   if (!pathname) {
@@ -41,6 +42,14 @@ const Protected = ({ children }) => {
   const { authData } = useAuth()
   const title = getTitle(history.location.pathname)
 
+  const { mutate } = useMutate({
+    mutateFn: createTransaction,
+    key: transactionKey,
+    successMsg: 'Successfully created transaction!',
+    failureMsg: 'Error creating transaction',
+    onSettled: onClose,
+  })
+
   if (!authData.accessToken) {
     history.push('/sign-in')
   }
@@ -61,7 +70,7 @@ const Protected = ({ children }) => {
           <MainLayout minH='100%' bg='gray.100'>
             {children}
           </MainLayout>
-          <TransactionModal isOpen={isOpen} onClose={onClose} />
+          <TransactionModal isOpen={isOpen} onClose={onClose} mutate={mutate} />
         </CategoriesContext.Provider>
       </Box>
       <Hidden above='md'>

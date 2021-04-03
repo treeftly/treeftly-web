@@ -2,12 +2,15 @@ import React from 'react'
 import { format } from 'date-fns'
 import { Tr, Td } from '@chakra-ui/table'
 import PropTypes from 'prop-types'
-import { Box, Text } from '@chakra-ui/layout'
+import { Text } from '@chakra-ui/layout'
+import { useHistory } from 'react-router'
 import ColorIcon from '../../components/color-swatch/ColorIcon'
 
 const TransactionRow = ({ data }) => {
+  const history = useHistory()
+
   return (
-    <Tr pos='relative'>
+    <Tr pos='relative' cursor='pointer' onClick={() => history.push(`/transactions/${data.id}`)}>
       <Td>{format(new Date(data.date), 'LLL dd, yyyy')}</Td>
       <Td>
         <ColorIcon color={data?.['category.label']} />
@@ -15,9 +18,6 @@ const TransactionRow = ({ data }) => {
       </Td>
       <Td isTruncated maxW='350px'>
         <Text isTruncated>{data.description}</Text>
-        <Box pos='absolute' w='100%' h='100%' display='flex' alignItems='center' right='0' top='0'>
-          <Box ml='auto'>Meow</Box>
-        </Box>
       </Td>
       <Td isNumeric>
         {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(data.amount)}

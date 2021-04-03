@@ -23,7 +23,7 @@ const DeleteCategory = ({ isOpen, onClose, data }) => {
   })
 
   return (
-    <AlertDialog isOpen={isOpen} onClose={onClose} leastDestructiveRef={ref}>
+    <AlertDialog isOpen={isOpen} onClose={onClose} leastDestructiveRef={ref} isCentered>
       <AlertDialogOverlay>
         <AlertDialogContent>
           <AlertDialogHeader fontSize='lg' fontWeight='bold'>

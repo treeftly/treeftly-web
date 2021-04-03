@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useForm, Controller } from 'react-hook-form'
 import {
@@ -14,8 +14,6 @@ import FormComponent from '../FormComponent'
 import DatePicker from '../DatePicker'
 import Select from '../Select'
 import { CategoriesContext } from '../../services/categories'
-import { createTransaction, key } from '../../services/transactions'
-import { useMutate } from '../../utils/hooks'
 
 const addDots = (defaultStyle, { data }) => ({
   ...defaultStyle,
@@ -42,26 +40,32 @@ const styles = {
   option: addDots,
 }
 
-const TransactionModal = ({ isOpen, onClose }) => {
+const TransactionModal = ({ isOpen, onClose, values, mutate }) => {
   const categories = useContext(CategoriesContext)
-  const { control, register, errors, handleSubmit } = useForm({
+  const { control, register, errors, handleSubmit, setValue } = useForm({
     defaultValues: {
       date: new Date(),
       categoryId: '',
     },
-  })
-  const { mutate } = useMutate({
-    mutateFn: createTransaction,
-    key,
-    successMsg: 'Successfully created transaction!',
-    failureMsg: 'Error creating transaction',
-    onSettled: onClose,
   })
 
   const onSubmit = (data) => {
     const payload = { ...data, amount: parseFloat(data.amount), categoryId: data.categoryId.id }
     mutate(payload)
   }
+
+  useEffect(() => {
+    if (values?.id) {
+      setValue('amount', parseFloat(values?.amount))
+      setValue('description', values?.description)
+      setValue('date', new Date(values?.date))
+      setValue('categoryId', {
+        id: values['category.id'],
+        name: values['category.name'],
+        label: values['category.label'],
+      })
+    }
+  }, [values])
 
   return (
     <FormModal
@@ -121,6 +125,8 @@ const TransactionModal = ({ isOpen, onClose }) => {
 TransactionModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
+  mutate: PropTypes.func.isRequired,
+  values: PropTypes.object,
 }
 
 export default TransactionModal

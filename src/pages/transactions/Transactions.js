@@ -3,10 +3,12 @@ import { Table, Tbody, Th, Thead, Tr } from '@chakra-ui/table'
 import React from 'react'
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md'
 import { useQuery } from 'react-query'
+import { Route } from 'react-router'
 import IconButton from '../../components/IconButton'
 import PageLayout from '../../components/layouts/PageLayout'
 import PageHeader from '../../components/PageHeader'
 import { listTransactions, key } from '../../services/transactions'
+import TransactionItem from './TransactionItem'
 import TransactionRow from './TransactionRow'
 
 const Transactions = () => {
@@ -55,6 +57,9 @@ const Transactions = () => {
           </Table>
         </Box>
       </PageLayout>
+      <Route exact path='/transactions/:id'>
+        <TransactionItem />
+      </Route>
     </>
   )
 }
