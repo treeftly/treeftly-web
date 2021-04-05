@@ -1,20 +1,10 @@
-import React, { useRef } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import {
-  AlertDialog,
-  AlertDialogBody,
-  AlertDialogCloseButton,
-  AlertDialogContent,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogOverlay,
-} from '@chakra-ui/modal'
-import { Button } from '@chakra-ui/button'
 import { deleteCategory, key } from '../../services/categories'
 import { useMutate } from '../../utils/hooks'
+import DeleteModal from '../../components/modals/DeleteModal'
 
 const DeleteCategory = ({ isOpen, onClose, data }) => {
-  const ref = useRef()
   const { mutate } = useMutate({
     mutateFn: deleteCategory,
     key,
@@ -23,29 +13,15 @@ const DeleteCategory = ({ isOpen, onClose, data }) => {
   })
 
   return (
-    <AlertDialog isOpen={isOpen} onClose={onClose} leastDestructiveRef={ref} isCentered>
-      <AlertDialogOverlay>
-        <AlertDialogContent>
-          <AlertDialogHeader fontSize='lg' fontWeight='bold'>
-            Delete Category
-          </AlertDialogHeader>
-          <AlertDialogCloseButton />
-          <AlertDialogBody>
-            This will remove all transactions attached to this category. Are you sure you want to
-            delete category <strong>{data.name}</strong>?
-          </AlertDialogBody>
-
-          <AlertDialogFooter>
-            <Button onClick={onClose} ref={ref}>
-              Cancel
-            </Button>
-            <Button colorScheme='red' onClick={() => mutate(data.id)} ml={3}>
-              Delete
-            </Button>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialogOverlay>
-    </AlertDialog>
+    <DeleteModal
+      isOpen={isOpen}
+      onClose={onClose}
+      onDelete={() => mutate(data.id)}
+      header='Delete Category'
+    >
+      This will remove all transactions attached to this category. Are you sure you want to delete
+      category <strong>{data.name}</strong>?
+    </DeleteModal>
   )
 }
 

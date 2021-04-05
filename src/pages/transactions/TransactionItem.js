@@ -8,7 +8,6 @@ const TransactionItem = () => {
   const { id } = useParams()
   const history = useHistory()
   const { data } = useQuery(`${key}-${id}`, () => getTransaction(id))
-  // console.log('data', data)
 
   const onClose = () => {
     history.push('/transactions')

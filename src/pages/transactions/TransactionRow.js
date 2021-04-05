@@ -5,11 +5,15 @@ import PropTypes from 'prop-types'
 import { Text } from '@chakra-ui/layout'
 import { useHistory } from 'react-router'
 import { MdClose } from 'react-icons/md'
+import { useDisclosure } from '@chakra-ui/hooks'
 import ColorIcon from '../../components/color-swatch/ColorIcon'
 import IconButton from '../../components/IconButton'
+import DeleteTransaction from './DeleteTransaction'
+import { formatCurrency } from '../../utils/functions'
 
 const TransactionRow = ({ data }) => {
   const history = useHistory()
+  const { isOpen, onClose, onOpen } = useDisclosure()
 
   return (
     <Tr pos='relative' cursor='pointer' onClick={() => history.push(`/transactions/${data.id}`)}>
@@ -21,7 +25,12 @@ const TransactionRow = ({ data }) => {
           size='xs'
           ariaLabel='Delete transaction'
           label='Delete transaction'
+          onClick={(evt) => {
+            evt.stopPropagation()
+            onOpen()
+          }}
         />
+        <DeleteTransaction data={data} isOpen={isOpen} onClose={onClose} />
       </Td>
       <Td>{format(new Date(data.date), 'LLL dd, yyyy')}</Td>
       <Td>
@@ -31,9 +40,7 @@ const TransactionRow = ({ data }) => {
       <Td isTruncated maxW='350px'>
         <Text isTruncated>{data.description}</Text>
       </Td>
-      <Td isNumeric>
-        {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(data.amount)}
-      </Td>
+      <Td isNumeric>{formatCurrency(data.amount)}</Td>
     </Tr>
   )
 }
