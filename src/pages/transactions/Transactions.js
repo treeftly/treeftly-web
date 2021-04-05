@@ -43,6 +43,7 @@ const Transactions = () => {
           <Table variant='striped'>
             <Thead>
               <Tr>
+                <Th w='20px' />
                 <Th>Date</Th>
                 <Th>Category</Th>
                 <Th maxW='350px'>Description</Th>
