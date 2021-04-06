@@ -22,7 +22,6 @@ const TransactionRow = ({ data }) => {
           icon={<MdClose />}
           fontSize='14px'
           variant='ghost'
-          size='xs'
           ariaLabel='Delete transaction'
           label='Delete transaction'
           onClick={(evt) => {
