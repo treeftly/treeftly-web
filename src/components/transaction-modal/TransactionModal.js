@@ -46,6 +46,8 @@ const TransactionModal = ({ isOpen, onClose, values, mutate }) => {
     defaultValues: {
       date: new Date(),
       categoryId: '',
+      amount: parseFloat(values?.amount || 0),
+      description: values?.description,
     },
   })
 
@@ -56,9 +58,9 @@ const TransactionModal = ({ isOpen, onClose, values, mutate }) => {
 
   useEffect(() => {
     if (values?.id) {
-      setValue('amount', parseFloat(values?.amount))
+      setValue('amount', parseFloat(values.amount))
       setValue('description', values?.description)
-      setValue('date', new Date(values?.date))
+      setValue('date', new Date(values.date))
       setValue('categoryId', {
         id: values['category.id'],
         name: values['category.name'],
@@ -80,11 +82,7 @@ const TransactionModal = ({ isOpen, onClose, values, mutate }) => {
           control={control}
           rules={{ required: 'date is required' }}
           render={({ onChange, value }) => (
-            <DatePicker
-              dateFormat='yyyy-MM-dd'
-              selected={value}
-              onChange={(date) => onChange(date)}
-            />
+            <DatePicker dateFormat='yyyy-MM-dd' selected={value} onChange={onChange} />
           )}
         />
       </FormComponent>
@@ -107,13 +105,19 @@ const TransactionModal = ({ isOpen, onClose, values, mutate }) => {
         />
       </FormComponent>
       <FormComponent id='amount' label='Amount' isRequired errors={errors}>
-        <NumberInput>
-          <NumberInputField ref={register} name='amount' autoFocus />
-          <NumberInputStepper>
-            <NumberIncrementStepper />
-            <NumberDecrementStepper />
-          </NumberInputStepper>
-        </NumberInput>
+        <Controller
+          name='amount'
+          control={control}
+          render={({ value, onChange }) => (
+            <NumberInput ref={register} name='amount' autoFocus value={value} onChange={onChange}>
+              <NumberInputField />
+              <NumberInputStepper>
+                <NumberIncrementStepper />
+                <NumberDecrementStepper />
+              </NumberInputStepper>
+            </NumberInput>
+          )}
+        />
       </FormComponent>
       <FormComponent id='description' label='Description' errors={errors}>
         <Textarea placeholder='Cab home from the office' ref={register} name='description' />
