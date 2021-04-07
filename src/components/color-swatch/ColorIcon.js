@@ -3,10 +3,10 @@ import { MdBrightness1 } from 'react-icons/md'
 import PropTypes from 'prop-types'
 import IconButton from '../IconButton'
 
-const ColorIcon = ({ color, ...rest }) => {
+const ColorIcon = ({ label, color, ...rest }) => {
   return (
     <IconButton
-      label={color}
+      label={label || color}
       ariaLabel={`color picker for ${color}`}
       variant='ghost'
       icon={<MdBrightness1 />}
@@ -18,6 +18,7 @@ const ColorIcon = ({ color, ...rest }) => {
 }
 
 ColorIcon.propTypes = {
+  label: PropTypes.string,
   color: PropTypes.string.isRequired,
 }
 

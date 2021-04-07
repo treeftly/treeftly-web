@@ -5,6 +5,7 @@ import { MdChevronLeft, MdChevronRight } from 'react-icons/md'
 import { useQuery } from 'react-query'
 import { Route } from 'react-router'
 import { startOfMonth, format, addMonths, subMonths } from 'date-fns'
+import { useBreakpointValue } from '@chakra-ui/media-query'
 import IconButton from '../../components/IconButton'
 import PageLayout from '../../components/layouts/PageLayout'
 import PageHeader from '../../components/PageHeader'
@@ -26,6 +27,32 @@ const Transactions = () => {
   const { data: transactions, isError, refetch } = useQuery(key, () =>
     listTransactions(setQuery(currMonth))
   )
+  const TableHeader = useBreakpointValue({
+    base: (
+      <Tr>
+        <Th w='20px' />
+        <Th>Date</Th>
+        <Th isNumeric>Amount</Th>
+      </Tr>
+    ),
+    md: (
+      <Tr>
+        <Th w='20px' />
+        <Th>Date</Th>
+        <Th>Category</Th>
+        <Th isNumeric>Amount</Th>
+      </Tr>
+    ),
+    lg: (
+      <Tr>
+        <Th w='20px' />
+        <Th>Date</Th>
+        <Th>Category</Th>
+        <Th maxW='350px'>Description</Th>
+        <Th isNumeric>Amount</Th>
+      </Tr>
+    ),
+  })
 
   useEffect(() => {
     refetch()
@@ -39,7 +66,7 @@ const Transactions = () => {
     <>
       <PageHeader>Transactions</PageHeader>
       <PageLayout>
-        <Flex alignItems='center'>
+        <Flex alignItems='center' flexFlow={{ lg: 'row', base: 'column' }}>
           <Box display='flex' alignItems='center'>
             <IconButton
               ariaLabel='Toggle to previous month'
@@ -60,22 +87,14 @@ const Transactions = () => {
             />
           </Box>
           <Spacer />
-          <Box>
+          <Box mt={{ base: 4, lg: 0 }}>
             Total: <strong>{formatCurrency(transactions?.total)}</strong>
           </Box>
         </Flex>
         <Box my={4}>
           {transactions?.data.length > 0 ? (
             <Table variant='striped'>
-              <Thead>
-                <Tr>
-                  <Th w='20px' />
-                  <Th>Date</Th>
-                  <Th>Category</Th>
-                  <Th maxW='350px'>Description</Th>
-                  <Th isNumeric>Amount</Th>
-                </Tr>
-              </Thead>
+              <Thead>{TableHeader}</Thead>
               <Tbody>
                 {transactions?.data.map((transaction) => (
                   <TransactionRow key={transaction.id} data={transaction} />
