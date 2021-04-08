@@ -88,7 +88,7 @@ const Transactions = () => {
           </Box>
           <Spacer />
           <Box mt={{ base: 4, lg: 0 }}>
-            Total: <strong>{formatCurrency(transactions?.total)}</strong>
+            Total: <strong>{formatCurrency(transactions?.total || 0)}</strong>
           </Box>
         </Flex>
         <Box my={4}>

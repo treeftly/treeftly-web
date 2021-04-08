@@ -109,8 +109,8 @@ const TransactionModal = ({ isOpen, onClose, values, mutate }) => {
           name='amount'
           control={control}
           render={({ value, onChange }) => (
-            <NumberInput ref={register} name='amount' autoFocus value={value} onChange={onChange}>
-              <NumberInputField />
+            <NumberInput ref={register} name='amount' value={value} onChange={onChange}>
+              <NumberInputField autoFocus />
               <NumberInputStepper>
                 <NumberIncrementStepper />
                 <NumberDecrementStepper />
