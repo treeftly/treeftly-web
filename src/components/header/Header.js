@@ -14,14 +14,16 @@ import { MdAdd } from 'react-icons/md'
 import { Link as RLink } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import Logo from '../../assets/logo-only.png'
-import { useAuth } from '../../utils/hooks'
+import { useAuth, useMutate } from '../../utils/hooks'
 import Hidden from '../Hidden'
 import IconButton from '../IconButton'
 import Nav from './Nav'
 import SideNav from './SideNav'
+import { logout } from '../../services/auth'
 
 const Header = ({ onNewTransaction }) => {
   const { authData, clearAuth } = useAuth()
+  const { mutate } = useMutate({ mutateFn: logout, key: 'auth', onSettled: clearAuth })
   const name = `${authData?.user?.firstName} ${authData?.user?.lastName}`
 
   return (
@@ -64,7 +66,7 @@ const Header = ({ onNewTransaction }) => {
             <MenuItem to='/profile' as={RLink}>
               Profile
             </MenuItem>
-            <MenuItem onClick={clearAuth}>Logout</MenuItem>
+            <MenuItem onClick={mutate}>Logout</MenuItem>
           </MenuList>
         </Menu>
       </Flex>

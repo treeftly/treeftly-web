@@ -37,7 +37,6 @@ export const useAuth = () => {
   }, [authData])
 
   const clearAuth = () => {
-    // TODO: Invalidate accessToken
     setAuthData(defaultAuth)
     logout()
   }
