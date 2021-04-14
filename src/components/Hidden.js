@@ -21,10 +21,8 @@ const generateBreakpoint = (breakPoint, isAbove) => {
  * <Hidden below='lg' /> - Hides the component for breakpoint below lg - md and down
  */
 const Hidden = ({ above, below, children }) => {
-  console.log('above', above)
   const type = above || below
   const isHidden = useBreakpointValue(generateBreakpoint(type, !!above))
-  console.log('isHidden', isHidden)
 
   if (isHidden) {
     return null
