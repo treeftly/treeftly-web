@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 const IconButton = ({ tooltipProps = {}, label, ariaLabel, ...rest }) => {
   return (
     <Tooltip aria-label={`tooltip for ${ariaLabel} button`} label={label} {...tooltipProps}>
-      <CIconButton fontSize='25px' aria-label={ariaLabel} {...rest} />
+      <CIconButton fontSize='25px' aria-label={ariaLabel} {...rest} data-testid='icon-button' />
     </Tooltip>
   )
 }

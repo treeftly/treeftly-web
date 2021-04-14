@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 const LinkText = ({ href, children, ...rest }) => {
   return (
     <Text color='primary.600' {...rest}>
-      <Link to={href} as={RLink}>
+      <Link to={href} as={RLink} data-testid='link-component'>
         {children}
       </Link>
     </Text>

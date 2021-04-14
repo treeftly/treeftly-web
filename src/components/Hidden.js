@@ -13,9 +13,18 @@ const generateBreakpoint = (breakPoint, isAbove) => {
   return breakpointObj
 }
 
+/**
+ * Hide/shows element based on passed props
+ * above='{from breakpoints}' - Hides the component for breakpoint above the given breakpoint
+ * <Hidden above='md' /> - Hides the component above md breakpoint - lg and up.
+ * below='{from breakpoints}' - Hides the component for breakpoint below the given breakpoint
+ * <Hidden below='lg' /> - Hides the component for breakpoint below lg - md and down
+ */
 const Hidden = ({ above, below, children }) => {
+  console.log('above', above)
   const type = above || below
   const isHidden = useBreakpointValue(generateBreakpoint(type, !!above))
+  console.log('isHidden', isHidden)
 
   if (isHidden) {
     return null
