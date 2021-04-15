@@ -7,7 +7,7 @@ if (process.env.REACT_APP_NODE_ENV === 'production') {
   opts.baseURL = 'https://api.treeftly.com'
 }
 
-const fetch = axios.create()
+const fetch = axios.create(opts)
 
 fetch.interceptors.request.use((config) => {
   const { accessToken } = getToken()
