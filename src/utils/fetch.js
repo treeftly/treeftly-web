@@ -4,7 +4,7 @@ import { logout, getToken } from './hooks'
 const opts = {}
 
 if (process.env.NODE_ENV === 'production') {
-  opts.baseURL = 'https://my-api-url.com'
+  opts.baseURL = 'https://api.treeftly.com'
 }
 
 const fetch = axios.create()
