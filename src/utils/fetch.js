@@ -3,7 +3,7 @@ import { logout, getToken } from './hooks'
 
 const opts = {}
 
-if (process.env.NODE_ENV === 'production') {
+if (process.env.REACT_APP_NODE_ENV === 'production') {
   opts.baseURL = 'https://api.treeftly.com'
 }
 
