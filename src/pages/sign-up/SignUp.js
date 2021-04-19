@@ -17,7 +17,7 @@ const SignUp = () => {
   const { mutate, isLoading, isSuccess } = useMutate({
     mutateFn: authRegister,
     successMsg: 'Account created!',
-    successDescription: 'Wohoo! You can now start using Treeftly.',
+    successDescription: 'Wohoo! Verify your account to start using Treeftly.',
     onError: (err) => {
       if (err?.response?.status === 400) {
         const { data: resData } = err.response
@@ -46,11 +46,10 @@ const SignUp = () => {
         <Text textAlign='center' mb={4} color='gray.600' whiteSpace='pre-line'>
           {isSuccess ? (
             <>
-              Please{' '}
+              We have sent you a verification email. Please verify your account before{' '}
               <LinkText href='/sgin-in' as='span'>
-                sign in
+                signing-in
               </LinkText>{' '}
-              with your new account
             </>
           ) : (
             `Hiya! We need your information so that you,

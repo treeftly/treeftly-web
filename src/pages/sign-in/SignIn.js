@@ -18,6 +18,20 @@ const SignIn = () => {
   const { mutate, isLoading } = useMutate({
     mutateFn: login,
     onError: (err) => {
+      if (err?.response?.data?.className === 'not-verified') {
+        return setError('email', {
+          message: (
+            <Text>
+              Account not verified. Please{' '}
+              <LinkText display='inline-block' href='/resend-verification'>
+                verify
+              </LinkText>{' '}
+              your account and try again.
+            </Text>
+          ),
+        })
+      }
+
       if (err?.response?.status === 401) {
         return setError('email', { message: 'Invalid email address or password' })
       }
