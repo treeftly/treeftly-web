@@ -7,6 +7,8 @@ import Protected from './components/layouts/Protected'
 
 const SignIn = lazy(() => import('./pages/sign-in/SignIn'))
 const SignUp = lazy(() => import('./pages/sign-up/SignUp'))
+const Verify = lazy(() => import('./pages/verify/Verify'))
+const ResendVerification = lazy(() => import('./pages/verify/ResendVerification'))
 const ForgotPassword = lazy(() => import('./pages/forgot-password/ForgotPassword'))
 const Dashboard = lazy(() => import('./pages/dashboard/Dashboard'))
 const Transactions = lazy(() => import('./pages/transactions/Transactions'))
@@ -30,6 +32,12 @@ const App = () => {
               </Route>
               <Route exact path='/forgot-password'>
                 <ForgotPassword />
+              </Route>
+              <Route exact path='/verify-email/:token'>
+                <Verify />
+              </Route>
+              <Route exact path='/resend-verification'>
+                <ResendVerification />
               </Route>
               <Protected>
                 <Route exact path='/'>

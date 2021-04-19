@@ -20,7 +20,15 @@ const SignIn = () => {
     onError: (err) => {
       if (err?.response?.data?.className === 'not-verified') {
         return setError('email', {
-          message: 'Account not verified. Please verify your account and try again.',
+          message: (
+            <Text>
+              Account not verified. Please{' '}
+              <LinkText display='inline-block' href='/resend-verification'>
+                verify
+              </LinkText>{' '}
+              your account and try again.
+            </Text>
+          ),
         })
       }
 
