@@ -64,6 +64,7 @@ const SignIn = () => {
           </FormComponent>
           <FormComponent id='password' label='Password' isRequired errors={errors}>
             <PasswordInput name='password' ref={register} />
+            <LinkText href='/forgot-password'>Forgot your password?</LinkText>
           </FormComponent>
           {/* <LinkText mt={2} href='/forgot-password'>
             Forgot password?
