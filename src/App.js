@@ -10,6 +10,7 @@ const SignUp = lazy(() => import('./pages/sign-up/SignUp'))
 const Verify = lazy(() => import('./pages/verify/Verify'))
 const ResendVerification = lazy(() => import('./pages/verify/ResendVerification'))
 const ForgotPassword = lazy(() => import('./pages/forgot-password/ForgotPassword'))
+const ResetPassword = lazy(() => import('./pages/reset-password/ResetPassword'))
 const Dashboard = lazy(() => import('./pages/dashboard/Dashboard'))
 const Transactions = lazy(() => import('./pages/transactions/Transactions'))
 const Categories = lazy(() => import('./pages/categories/Categories'))
@@ -35,6 +36,9 @@ const App = () => {
               </Route>
               <Route exact path='/verify-email/:token'>
                 <Verify />
+              </Route>
+              <Route exact path='/reset-password/:token'>
+                <ResetPassword />
               </Route>
               <Route exact path='/resend-verification'>
                 <ResendVerification />

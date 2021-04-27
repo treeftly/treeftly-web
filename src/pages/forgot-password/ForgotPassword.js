@@ -6,25 +6,24 @@ import FormComponent from '../../components/FormComponent'
 import MainLayout from '../../components/layouts/MainLayout'
 import OnboardingLayout from '../../components/layouts/OnboardingLayout'
 import SuccessMessage from './SuccessMessage'
+import { useMutate } from '../../utils/hooks'
+import { forgotPassword } from '../../services/auth'
 
 const ForgotPassword = () => {
-  // const [isLoading, setIsLoading] = useState(false)
-  const [isLoading] = useState(false)
-  // const [successMsg, setSuccessMsg] = useState('')
-  const [successMsg] = useState('')
+  const [successMsg, setSuccessMsg] = useState('')
   const { register, errors, handleSubmit } = useForm()
+  const { mutate, isLoading } = useMutate({
+    mutateFn: forgotPassword,
+    key: 'forgot-password',
+    successMsg: 'Successfully requested for password reset token',
+    failureMsg: 'Failed to request for password reset token',
+    onSuccess: () => {
+      setSuccessMsg('Please check your email for reset password token')
+    },
+  })
 
-  const onSubmit = async () => {
-    // setIsLoading(true)
-    // try {
-    //   console.log(data)
-    //   // const res = await auth0ForgotPassword({ email: data.email })
-    //   // setSuccessMsg(res)
-    // } catch (err) {
-    //   console.error('err', err)
-    // } finally {
-    //   setIsLoading(false)
-    // }
+  const onSubmit = async (data) => {
+    mutate(data)
   }
 
   return (
