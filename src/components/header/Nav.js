@@ -1,6 +1,7 @@
 import React from 'react'
 import { Flex, Link, Heading } from '@chakra-ui/react'
 import { Link as RLink } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 const links = [
   {
@@ -17,7 +18,7 @@ const links = [
   },
 ]
 
-const Nav = () => {
+const Nav = ({ onClose }) => {
   return (
     <Flex
       as='nav'
@@ -31,6 +32,7 @@ const Nav = () => {
           as={RLink}
           key={link.url}
           _hover={{ textDecoration: 'none' }}
+          onClick={onClose}
           mr={{ lg: 6 }}
           mb={{ base: 3, lg: 0 }}
         >
@@ -41,6 +43,10 @@ const Nav = () => {
       ))}
     </Flex>
   )
+}
+
+Nav.propTypes = {
+  onClose: PropTypes.func,
 }
 
 export default Nav

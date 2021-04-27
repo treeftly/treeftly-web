@@ -2,6 +2,7 @@ import { Box, useDisclosure } from '@chakra-ui/react'
 import { Helmet } from 'react-helmet-async'
 import React, { useHistory } from 'react-router-dom'
 import { useQuery } from 'react-query'
+import { useEffect, useState } from 'react'
 import { useAuth, useMutate } from '../../utils/hooks'
 import Footer from '../Footer'
 import Header from '../header/Header'
@@ -36,6 +37,7 @@ const getTitle = (pathname) => {
   return title
 }
 const Protected = ({ children }) => {
+  const [height, setHeight] = useState()
   const { isOpen, onClose, onOpen } = useDisclosure()
   const { data: categories } = useQuery(key, listCategories)
   const history = useHistory()
@@ -50,6 +52,19 @@ const Protected = ({ children }) => {
     onSettled: onClose,
   })
 
+  useEffect(() => {
+    const onResize = () => {
+      setHeight(window.innerHeight)
+    }
+
+    window.addEventListener('resize', onResize)
+    onResize()
+
+    return () => {
+      window.removeEventListener('resize', onResize)
+    }
+  }, [])
+
   if (!authData.accessToken) {
     history.push('/sign-in')
   }
@@ -62,8 +77,8 @@ const Protected = ({ children }) => {
       <Header onNewTransaction={onOpen} />
       <Box
         as='main'
-        h={{ base: 'calc(100vh - 130px)', lg: 'calc(100vh - 65px)' }}
-        maxH={{ base: 'calc(100vh - 130px)', lg: 'calc(100vh - 65px)' }}
+        h={{ base: `calc(${height}px - 130px)`, lg: 'calc(100vh - 65px)' }}
+        maxH={{ base: `calc(${height}px - 130px)`, lg: 'calc(100vh - 65px)' }}
         overflow='scroll'
       >
         <CategoriesContext.Provider value={categories}>
