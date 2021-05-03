@@ -42,11 +42,12 @@ const styles = {
 
 const TransactionModal = ({ isOpen, onClose, values, mutate }) => {
   const categories = useContext(CategoriesContext)
+  const defaultAmount = parseFloat(values?.amount || 0)
   const { control, register, errors, handleSubmit, setValue } = useForm({
     defaultValues: {
       date: new Date(),
       categoryId: '',
-      amount: parseFloat(values?.amount || 0),
+      amount: defaultAmount === 0 ? undefined : defaultAmount,
       description: values?.description,
     },
   })
