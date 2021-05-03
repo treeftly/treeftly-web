@@ -7,9 +7,9 @@ describe('#Footer', () => {
     const onClick = jest.fn()
     render(<Footer onNewTransaction={onClick} />)
 
-    const footerButton = screen.getByTestId('icon-button')
+    const footerButton = screen.queryAllByTestId('icon-button')
 
-    fireEvent.click(footerButton)
+    fireEvent.click(footerButton[2])
 
     expect(onClick).toHaveBeenCalledTimes(1)
   })

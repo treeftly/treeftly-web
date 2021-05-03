@@ -35,7 +35,7 @@ const SideNav = () => {
               <Image height='100%' src={LogoText} alt='treeftly logo' />
             </DrawerHeader>
             <DrawerBody>
-              <Nav />
+              <Nav onClose={onClose} />
             </DrawerBody>
           </DrawerContent>
         </DrawerOverlay>
