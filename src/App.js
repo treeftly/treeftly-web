@@ -1,7 +1,7 @@
 import React, { lazy, Suspense } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 import Protected from './components/layouts/Protected'
 
@@ -45,6 +45,9 @@ const App = () => {
               </Route>
               <Protected>
                 <Route exact path='/'>
+                  <Redirect to='/transactions' />
+                </Route>
+                <Route exact path='/dashboard'>
                   <Dashboard />
                 </Route>
                 <Route path='/transactions'>

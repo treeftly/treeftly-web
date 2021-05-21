@@ -50,6 +50,11 @@ const Protected = ({ children }) => {
     successMsg: 'Successfully created transaction!',
     failureMsg: 'Error creating transaction',
     onSettled: onClose,
+    onSuccess: () => {
+      if (window.location.pathname !== '/transactions') {
+        history.push('/transactions')
+      }
+    },
   })
 
   useEffect(() => {
