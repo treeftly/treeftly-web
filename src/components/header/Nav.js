@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 
 const links = [
   {
-    url: '/',
+    url: '/dashboard',
     text: 'Dashboard',
   },
   {
