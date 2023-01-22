@@ -1,5 +1,4 @@
-import { Button } from '@chakra-ui/button'
-import { Input, Text } from '@chakra-ui/react'
+import { Button, Input, Text } from '@chakra-ui/react'
 import React from 'react'
 import { Helmet } from 'react-helmet-async'
 import { useForm } from 'react-hook-form'

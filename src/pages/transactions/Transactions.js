@@ -1,11 +1,21 @@
-import { Box, Flex, Heading, Spacer, Text } from '@chakra-ui/react'
-import { Table, Tbody, Th, Thead, Tr } from '@chakra-ui/table'
+import {
+  Box,
+  Flex,
+  Heading,
+  Spacer,
+  Text,
+  Table,
+  Tbody,
+  Th,
+  Thead,
+  Tr,
+  useBreakpointValue,
+} from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md'
 import { useQuery } from 'react-query'
 import { Route } from 'react-router-dom'
 import { startOfMonth, format, addMonths, subMonths } from 'date-fns'
-import { useBreakpointValue } from '@chakra-ui/media-query'
 import IconButton from '../../components/IconButton'
 import PageLayout from '../../components/layouts/PageLayout'
 import PageHeader from '../../components/PageHeader'

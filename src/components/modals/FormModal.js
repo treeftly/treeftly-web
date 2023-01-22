@@ -6,10 +6,10 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-} from '@chakra-ui/modal'
+  Button,
+} from '@chakra-ui/react'
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Button } from '@chakra-ui/button'
 
 const FormModal = ({ isOpen, header, onSubmit, onClose, children }) => {
   return (

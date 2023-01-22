@@ -1,5 +1,4 @@
-import { Button } from '@chakra-ui/button'
-import { Input, Divider, Heading } from '@chakra-ui/react'
+import { Button, Input, Divider, Heading } from '@chakra-ui/react'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import FormComponent from '../../components/FormComponent'

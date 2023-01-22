@@ -1,5 +1,5 @@
-import { Button } from '@chakra-ui/button'
 import {
+  Button,
   AlertDialog,
   AlertDialogBody,
   AlertDialogCloseButton,
@@ -7,7 +7,7 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogOverlay,
-} from '@chakra-ui/modal'
+} from '@chakra-ui/react'
 import React, { useRef } from 'react'
 import PropTypes from 'prop-types'
 

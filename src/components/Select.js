@@ -1,4 +1,4 @@
-import theme from '@chakra-ui/theme'
+import { theme } from '@chakra-ui/react'
 import React from 'react'
 import RSelect from 'react-select'
 import PropTypes from 'prop-types'

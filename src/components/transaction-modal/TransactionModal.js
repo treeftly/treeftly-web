@@ -7,8 +7,8 @@ import {
   NumberInput,
   NumberInputField,
   NumberInputStepper,
-} from '@chakra-ui/number-input'
-import { Textarea } from '@chakra-ui/textarea'
+  Textarea,
+} from '@chakra-ui/react'
 import FormModal from '../modals/FormModal'
 import FormComponent from '../FormComponent'
 import DatePicker from '../DatePicker'
