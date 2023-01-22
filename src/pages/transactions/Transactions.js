@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, Spacer, Text } from '@chakra-ui/layout'
+import { Box, Flex, Heading, Spacer, Text } from '@chakra-ui/react'
 import { Table, Tbody, Th, Thead, Tr } from '@chakra-ui/table'
 import React, { useEffect, useState } from 'react'
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md'
