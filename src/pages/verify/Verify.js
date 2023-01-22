@@ -1,6 +1,6 @@
 import React from 'react'
 import { Helmet } from 'react-helmet-async'
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 import { Text } from '@chakra-ui/layout'
 import { useQuery } from 'react-query'
 import { Skeleton } from '@chakra-ui/skeleton'

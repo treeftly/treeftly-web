@@ -1,6 +1,6 @@
 import React from 'react'
 import { useQuery } from 'react-query'
-import { useHistory, useParams } from 'react-router'
+import { useHistory, useParams } from 'react-router-dom'
 import TransactionModal from '../../components/transaction-modal/TransactionModal'
 import { getTransaction, key, updateTransaction } from '../../services/transactions'
 import { useMutate } from '../../utils/hooks'

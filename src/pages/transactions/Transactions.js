@@ -3,7 +3,7 @@ import { Table, Tbody, Th, Thead, Tr } from '@chakra-ui/table'
 import React, { useEffect, useState } from 'react'
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md'
 import { useQuery } from 'react-query'
-import { Route } from 'react-router'
+import { Route } from 'react-router-dom'
 import { startOfMonth, format, addMonths, subMonths } from 'date-fns'
 import { useBreakpointValue } from '@chakra-ui/media-query'
 import IconButton from '../../components/IconButton'
@@ -24,9 +24,11 @@ const setQuery = (startMonth) => {
 
 const Transactions = () => {
   const [currMonth, setCurrMonth] = useState(() => startOfMonth(new Date()))
-  const { data: transactions, isError, refetch } = useQuery(key, () =>
-    listTransactions(setQuery(currMonth))
-  )
+  const {
+    data: transactions,
+    isError,
+    refetch,
+  } = useQuery(key, () => listTransactions(setQuery(currMonth)))
   const TableHeader = useBreakpointValue({
     base: (
       <Tr>
