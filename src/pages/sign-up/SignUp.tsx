@@ -1,0 +1,136 @@
+import { Box, Button, Input, Text } from "@chakra-ui/react";
+import React, { useState } from "react";
+import { Helmet } from "react-helmet-async";
+import { useForm } from "react-hook-form";
+
+import FormComponent from "../../components/FormComponent";
+import MainLayout from "../../components/layouts/MainLayout";
+import OnboardingLayout from "../../components/layouts/OnboardingLayout";
+import LinkText from "../../components/LinkText";
+import PasswordInput from "../../components/password/PasswordInput";
+import PasswordStrength from "../../components/password/PasswordStrength";
+import { register as authRegister } from "../../services/auth";
+import { useMutate } from "../../utils/hooks";
+
+const SignUp = () => {
+  const [password, setPassword] = useState("");
+  const { register, handleSubmit, errors, setError } = useForm();
+  const { mutate, isLoading, isSuccess } = useMutate({
+    mutateFn: authRegister,
+    successMsg: "Account created!",
+    successDescription: "Wohoo! Verify your account to start using Treeftly.",
+    onError: (err) => {
+      if (err?.response?.status === 400) {
+        const { data: resData } = err.response;
+        switch (resData.message) {
+          case "Validation error":
+            setError("email", { message: "Email address already exists" });
+            break;
+          default:
+            setError("firstName", {
+              message: `Signup error: ${resData.message}`,
+            });
+        }
+        return null;
+      }
+
+      return setError("firstName", {
+        message: `Something went wrong with the request: ${err.response?.data?.message}`,
+      });
+    },
+  });
+
+  return (
+    <MainLayout bg="gradientBg">
+      <Helmet>
+        <title>Sign Up</title>
+      </Helmet>
+      <OnboardingLayout headerText={`Sign Up ${isSuccess ? "Success" : ""}`}>
+        <Text textAlign="center" mb={4} color="gray.600" whiteSpace="pre-line">
+          {isSuccess ? (
+            <>
+              We have sent you a verification email. Please verify your account
+              before{" "}
+              <LinkText href="/sgin-in" as="span">
+                signing-in
+              </LinkText>{" "}
+            </>
+          ) : (
+            `Hiya! We need your information so that you,
+            and only you can access your data!`
+          )}
+        </Text>
+        {!isSuccess && (
+          <form onSubmit={handleSubmit(mutate)}>
+            <FormComponent
+              id="firstName"
+              isRequired
+              errors={errors}
+              label="First Name"
+            >
+              <Input
+                placeholder="John"
+                autoFocus
+                name="firstName"
+                ref={register}
+              />
+            </FormComponent>
+            <FormComponent
+              id="lastName"
+              isRequired
+              errors={errors}
+              label="Last Name"
+            >
+              <Input placeholder="Doe" ref={register} name="lastName" />
+            </FormComponent>
+            <FormComponent
+              id="email"
+              isRequired
+              errors={errors}
+              label="Email Address"
+            >
+              <Input
+                type="email"
+                placeholder="hello@treeftly.com"
+                name="email"
+                ref={register}
+              />
+            </FormComponent>
+            <FormComponent
+              id="password"
+              isRequired
+              errors={errors}
+              label="Password"
+            >
+              <PasswordInput
+                value={password}
+                onChange={(evt) => setPassword(evt.target.value)}
+                name="password"
+                ref={register}
+              />
+              <Box mt={1}>
+                <PasswordStrength value={password} />
+              </Box>
+            </FormComponent>
+            <LinkText mt={2} href="/sign-in">
+              Already a member?
+            </LinkText>
+            <Button
+              mt={4}
+              isFullWidth
+              variant="solid"
+              colorScheme="primary"
+              textTransform="uppercase"
+              type="submit"
+              isLoading={isLoading}
+            >
+              Sign Up
+            </Button>
+          </form>
+        )}
+      </OnboardingLayout>
+    </MainLayout>
+  );
+};
+
+export default SignUp;
