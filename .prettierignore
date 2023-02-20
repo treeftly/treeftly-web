@@ -1,0 +1,9 @@
+node_modules
+.DS_Store
+dist
+dist-ssr
+build
+build_keycloak
+keycloak_email
+*.local
+node_modules/*
