@@ -1,9 +1,12 @@
-import React from "react";
+// @ts-expect-error TS(7016): Could not find a declaration file for module 'reac... Remove this comment to see the full error message
+import React from 'react';
 
-import Container from "./Container";
+// @ts-expect-error TS(6142): Module './Container' was resolved to '/Users/matth... Remove this comment to see the full error message
+import Container from './Container';
 
-const PageLayout = ({ children }) => {
+const PageLayout = ({ children }: any) => {
   return (
+    // @ts-expect-error TS(17004): Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
     <Container
       border="1px"
       borderColor="gray.200"

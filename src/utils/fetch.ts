@@ -1,11 +1,13 @@
-import axios from "axios";
+import axios from 'axios';
 
-import { getToken, logout } from "./hooks";
+import { getToken, logout } from './hooks';
 
 const opts = {};
 
-if (process.env.REACT_APP_NODE_ENV === "production") {
-  opts.baseURL = "https://api.treeftly.com";
+// @ts-expect-error TS(2580): Cannot find name 'process'. Do you need to install... Remove this comment to see the full error message
+if (process.env.REACT_APP_NODE_ENV === 'production') {
+  // @ts-expect-error TS(2339): Property 'baseURL' does not exist on type '{}'.
+  opts.baseURL = 'https://api.treeftly.com';
 }
 
 const fetch = axios.create(opts);
@@ -25,7 +27,7 @@ fetch.interceptors.response.use(
     return res.data;
   },
   (error) => {
-    const publicLinks = ["/sign-in", "/sign-up"];
+    const publicLinks = ['/sign-in', '/sign-up'];
     if (
       error?.response?.status === 401 &&
       !publicLinks.includes(window.location.pathname)
@@ -34,7 +36,7 @@ fetch.interceptors.response.use(
     }
 
     return Promise.reject(error);
-  }
+  },
 );
 
 export default fetch;

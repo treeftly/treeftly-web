@@ -1,5 +1,5 @@
-import fetch from "../utils/fetch";
+import fetch from '../utils/fetch';
 
-export const key = "verification-tokens";
-export const resendVerification = (data) => fetch.post(`/${key}`, data);
-export const verify = (token) => fetch.get(`/${key}?token=${token}`);
+export const key = 'verification-tokens';
+export const resendVerification = (data: any) => fetch.post(`/${key}`, data);
+export const verify = (token: any) => fetch.get(`/${key}?token=${token}`);
