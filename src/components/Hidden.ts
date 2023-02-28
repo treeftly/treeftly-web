@@ -1,14 +1,12 @@
-import { useBreakpointValue } from '@chakra-ui/react';
-// @ts-expect-error TS(7016): Could not find a declaration file for module 'prop... Remove this comment to see the full error message
-import PropTypes from 'prop-types';
+import { useBreakpointValue } from "@chakra-ui/react";
+import PropTypes from "prop-types";
 
-const breakpoints = ['base', 'sm', 'md', 'lg', 'xl', '2xl'];
+const breakpoints = ["base", "sm", "md", "lg", "xl", "2xl"];
 const generateBreakpoint = (breakPoint: any, isAbove: any) => {
   const breakpointObj = {};
   const idx = breakpoints.indexOf(breakPoint);
 
   for (let i = 0; i < breakpoints.length; i += 1) {
-    // @ts-expect-error TS(7053): Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
     breakpointObj[breakpoints[i]] = isAbove ? i > idx : i < idx;
   }
 

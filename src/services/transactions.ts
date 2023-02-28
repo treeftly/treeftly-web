@@ -1,7 +1,7 @@
-import fetch from '../utils/fetch';
+import fetch from "../utils/fetch";
 
-export const key = 'transactions';
-export const listTransactions = (query = '') =>
+export const key = "transactions";
+export const listTransactions = (query = "") =>
   fetch.get(`/${key}?include=true&$sort[date]=-1&${query}`);
 export const createTransaction = (data: any) => fetch.post(`/${key}`, data);
 export const getTransaction = (id: any) =>
