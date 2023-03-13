@@ -1,15 +1,19 @@
-import { Heading, Image, Link } from "@chakra-ui/react";
-import PropTypes from "prop-types";
-import React from "react";
-import { Link as RLink } from "react-router-dom";
+import { Heading, Image, Link } from '@chakra-ui/react';
+import { ReactNode } from 'react';
+import { Link as RLink } from 'react-router-dom';
 
-import LogoWithText from "../../assets/logo-with-text.png";
-import Container from "./Container";
+import LogoWithText from '../../assets/logo-with-text.png';
+import Container from './Container';
 
-const OnboardingLayout = ({ children, headerText }: any) => {
+interface OnboardingLayoutProps {
+  children: ReactNode;
+  headerText: ReactNode;
+}
+
+const OnboardingLayout = ({ children, headerText }: OnboardingLayoutProps) => {
   return (
     <>
-      <Container height={["80px", "120px"]} mt={["8", "16"]} mb="4">
+      <Container height={['80px', '120px']} mt={['8', '16']} mb="4">
         <Link to="/" as={RLink}>
           <Image height="100%" mx="auto" src={LogoWithText} />
         </Link>
@@ -20,8 +24,8 @@ const OnboardingLayout = ({ children, headerText }: any) => {
         borderRadius="base"
         boxShadow="md"
         mx="auto"
-        mb={["16", "20"]}
-        minW={["100%", "100%", "650px"]}
+        mb={['16', '20']}
+        minW={['100%', '100%', '650px']}
         px="6"
         py="4"
         bg="white"
@@ -42,10 +46,6 @@ const OnboardingLayout = ({ children, headerText }: any) => {
       </Container>
     </>
   );
-};
-
-OnboardingLayout.propTypes = {
-  headerText: PropTypes.string,
 };
 
 export default OnboardingLayout;

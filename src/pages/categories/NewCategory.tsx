@@ -1,24 +1,24 @@
-import { Grid, Input } from "@chakra-ui/react";
-import PropTypes from "prop-types";
-import React from "react";
-import { Controller, useForm } from "react-hook-form";
+import { Grid, Input } from '@chakra-ui/react';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { Controller, useForm } from 'react-hook-form';
 
-import ColorSwatch from "../../components/color-swatch/ColorSwatch";
-import FormComponent from "../../components/FormComponent";
-import FormModal from "../../components/modals/FormModal";
-import { createCategory, key } from "../../services/categories";
-import { noop } from "../../utils/functions";
-import { useMutate } from "../../utils/hooks";
+import ColorSwatch from '../../components/color-swatch/ColorSwatch';
+import FormComponent from '../../components/FormComponent';
+import FormModal from '../../components/modals/FormModal';
+import { createCategory, key } from '../../services/categories';
+import { noop } from '../../utils/functions';
+import { useMutate } from '../../utils/hooks';
 
 const NewCategory = ({ isOpen = false, onClose = noop }) => {
   const { register, handleSubmit, control, setValue } = useForm({
-    defaultValues: { label: "#CBD5E0", name: "" },
+    defaultValues: { label: '#CBD5E0', name: '' },
   });
   const { mutate } = useMutate({
     mutateFn: createCategory,
     key,
-    successMsg: "Category created!",
-    failureMsg: "Failed to create category.",
+    successMsg: 'Category created!',
+    failureMsg: 'Failed to create category.',
     onSettled: onClose,
   });
 
@@ -37,7 +37,7 @@ const NewCategory = ({ isOpen = false, onClose = noop }) => {
             render={({ value }) => (
               <ColorSwatch
                 selected={value}
-                onSelect={(color: any) => setValue("label", color)}
+                onSelect={(color: any) => setValue('label', color)}
               />
             )}
           />

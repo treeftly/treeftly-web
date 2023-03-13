@@ -1,36 +1,36 @@
-import { Button, Text } from "@chakra-ui/react";
-import React from "react";
-import { Helmet } from "react-helmet-async";
-import { useForm } from "react-hook-form";
-import { useParams } from "react-router-dom";
+import { Button, Text } from '@chakra-ui/react';
+import React from 'react';
+import { Helmet } from 'react-helmet-async';
+import { useForm } from 'react-hook-form';
+import { useParams } from 'react-router-dom';
 
-import FormComponent from "../../components/FormComponent";
-import MainLayout from "../../components/layouts/MainLayout";
-import OnboardingLayout from "../../components/layouts/OnboardingLayout";
-import LinkText from "../../components/LinkText";
-import PasswordInput from "../../components/password/PasswordInput";
-import { resetPassword } from "../../services/auth";
-import { useMutate } from "../../utils/hooks";
+import FormComponent from '../../components/FormComponent';
+import MainLayout from '../../components/layouts/MainLayout';
+import OnboardingLayout from '../../components/layouts/OnboardingLayout';
+import LinkText from '../../components/LinkText';
+import PasswordInput from '../../components/password/PasswordInput';
+import { resetPassword } from '../../services/auth';
+import { useMutate } from '../../utils/hooks';
 
 const ResetPassword = () => {
   const { token } = useParams();
   const { register, handleSubmit, errors, setError } = useForm();
   const { isLoading, mutate, isSuccess } = useMutate({
-    key: "forgot-password",
+    key: 'forgot-password',
     mutateFn: resetPassword,
-    successMsg: "You have successfully reset your password",
-    failureMsg: "Failed to reset password",
+    successMsg: 'You have successfully reset your password',
+    failureMsg: 'Failed to reset password',
     onError: (err: any) => {
       if (err?.response?.status === 400) {
-        setError("password", { message: err.response.data.message });
+        setError('password', { message: err.response.data.message });
       }
     },
   });
 
   const onSubmit = (data: any) => {
     if (data.password !== data.confirmPassword) {
-      return setError("confirmPassword", {
-        message: "Password does not match",
+      return setError('confirmPassword', {
+        message: 'Password does not match',
       });
     }
 
@@ -49,10 +49,10 @@ const ResetPassword = () => {
               You have successfully reset your password.
             </Text>
             <Text textAlign="center">
-              {" "}
+              {' '}
               <LinkText display="inline-block" href="/sign-in">
                 sign-in
-              </LinkText>{" "}
+              </LinkText>{' '}
               using your new password.
             </Text>
           </>

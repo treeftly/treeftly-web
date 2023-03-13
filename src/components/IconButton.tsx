@@ -1,8 +1,22 @@
-import { IconButton as CIconButton, Tooltip } from "@chakra-ui/react";
-import PropTypes from "prop-types";
-import React from "react";
+import {
+  IconButton as CIconButton,
+  IconButtonProps as CIconButtonProps,
+  Tooltip,
+  TooltipProps,
+} from '@chakra-ui/react';
 
-const IconButton = ({ tooltipProps = {}, label, ariaLabel, ...rest }: any) => {
+type IconButtonProps = {
+  tooltipProps?: TooltipProps;
+  label: string;
+  ariaLabel: string;
+} & Omit<CIconButtonProps, 'aria-label'>;
+
+const IconButton = ({
+  tooltipProps,
+  label,
+  ariaLabel,
+  ...rest
+}: IconButtonProps) => {
   return (
     <Tooltip
       aria-label={`tooltip for ${ariaLabel} button`}
@@ -11,18 +25,12 @@ const IconButton = ({ tooltipProps = {}, label, ariaLabel, ...rest }: any) => {
     >
       <CIconButton
         fontSize="25px"
-        aria-label={ariaLabel}
         {...rest}
+        aria-label={ariaLabel}
         data-testid="icon-button"
       />
     </Tooltip>
   );
-};
-
-IconButton.propTypes = {
-  ariaLabel: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  tooltipProps: PropTypes.object,
 };
 
 export default IconButton;

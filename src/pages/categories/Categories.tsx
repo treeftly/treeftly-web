@@ -7,14 +7,14 @@ import {
   Thead,
   Tr,
   useDisclosure,
-} from "@chakra-ui/react";
-import React, { useContext } from "react";
+} from '@chakra-ui/react';
+import React, { useContext } from 'react';
 
-import PageLayout from "../../components/layouts/PageLayout";
-import PageHeader from "../../components/PageHeader";
-import { CategoriesContext } from "../../services/categories";
-import CategoryRow from "./CategoryRow";
-import NewCategory from "./NewCategory";
+import PageLayout from '../../components/layouts/PageLayout';
+import PageHeader from '../../components/PageHeader';
+import { CategoriesContext } from '../../services/categories';
+import CategoryRow from './CategoryRow';
+import NewCategory from './NewCategory';
 
 const Categories = () => {
   const categories = useContext(CategoriesContext);

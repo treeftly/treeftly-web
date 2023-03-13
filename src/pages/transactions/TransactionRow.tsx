@@ -4,16 +4,15 @@ import {
   Tr,
   useBreakpointValue,
   useDisclosure,
-} from "@chakra-ui/react";
-import { format } from "date-fns";
-import PropTypes from "prop-types";
-import { MdClose } from "react-icons/md";
-import { useHistory } from "react-router-dom";
+} from '@chakra-ui/react';
+import { format } from 'date-fns';
+import { MdClose } from 'react-icons/md';
+import { useHistory } from 'react-router-dom';
 
-import ColorIcon from "../../components/color-swatch/ColorIcon";
-import IconButton from "../../components/IconButton";
-import { formatCurrency } from "../../utils/functions";
-import DeleteTransaction from "./DeleteTransaction";
+import ColorIcon from '../../components/color-swatch/ColorIcon';
+import IconButton from '../../components/IconButton';
+import { formatCurrency } from '../../utils/functions';
+import DeleteTransaction from './DeleteTransaction';
 
 const TransactionRow = ({ data }: any) => {
   const history = useHistory();
@@ -22,23 +21,23 @@ const TransactionRow = ({ data }: any) => {
     base: (
       <Td>
         <ColorIcon
-          color={data?.["category.label"]}
-          label={data?.["category.name"]}
+          color={data?.['category.label']}
+          label={data?.['category.name']}
         />
-        {format(new Date(data.date), "LLL dd, yyyy")}
+        {format(new Date(data.date), 'LLL dd, yyyy')}
       </Td>
     ),
-    md: <Td>{format(new Date(data.date), "LLL dd, yyyy")}</Td>,
+    md: <Td>{format(new Date(data.date), 'LLL dd, yyyy')}</Td>,
   });
   const categoryColumn = useBreakpointValue({
     base: null,
     md: (
       <Td>
         <ColorIcon
-          color={data?.["category.label"]}
-          label={data?.["category.name"]}
+          color={data?.['category.label']}
+          label={data?.['category.name']}
         />
-        {data?.["category.name"]}
+        {data?.['category.name']}
       </Td>
     ),
   });
@@ -60,11 +59,11 @@ const TransactionRow = ({ data }: any) => {
       <Td>
         <IconButton
           icon={<MdClose />}
-          fontSize={{ base: "12px", lg: "14px" }}
+          fontSize={{ base: '12px', lg: '14px' }}
           variant="ghost"
           ariaLabel="Delete transaction"
           label="Delete transaction"
-          size={{ base: "sm", lg: "md" }}
+          size={{ base: 'sm', lg: 'md' }}
           onClick={(evt: any) => {
             evt.stopPropagation();
             onOpen();
@@ -78,9 +77,5 @@ const TransactionRow = ({ data }: any) => {
       <Td isNumeric>{formatCurrency(data.amount)}</Td>
     </Tr>
   );
-};
-
-TransactionRow.propTypes = {
-  data: PropTypes.object.isRequired,
 };
 export default TransactionRow;

@@ -10,26 +10,30 @@ import {
   Thead,
   Tr,
   useBreakpointValue,
-} from "@chakra-ui/react";
-import { addMonths, format, startOfMonth, subMonths } from "date-fns";
-import React, { useEffect, useState } from "react";
-import { MdChevronLeft, MdChevronRight } from "react-icons/md";
-import { useQuery } from "react-query";
-import { Route } from "react-router-dom";
+} from '@chakra-ui/react';
+import { addMonths, format, startOfMonth, subMonths } from 'date-fns';
+import { useEffect, useState } from 'react';
+import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
+import { useQuery } from 'react-query';
+import { Route } from 'react-router-dom';
 
-import IconButton from "../../components/IconButton";
-import PageLayout from "../../components/layouts/PageLayout";
-import PageHeader from "../../components/PageHeader";
-import { key, listTransactions } from "../../services/transactions";
-import { formatCurrency } from "../../utils/functions";
-import TransactionItem from "./TransactionItem";
-import TransactionRow from "./TransactionRow";
+import IconButton from '../../components/IconButton';
+import PageLayout from '../../components/layouts/PageLayout';
+import PageHeader from '../../components/PageHeader';
+import {
+  key,
+  listTransactions,
+  TransactionsResponse,
+} from '../../services/transactions';
+import { formatCurrency } from '../../utils/functions';
+import TransactionItem from './TransactionItem';
+import TransactionRow from './TransactionRow';
 
 const setQuery = (startMonth: any) => {
-  const formatDate = "LLL dd, yyyy";
+  const formatDate = 'LLL dd, yyyy';
   return `date[$gte]=${format(startMonth, formatDate)}&date[$lt]=${format(
     addMonths(startMonth, 1),
-    formatDate
+    formatDate,
   )}`;
 };
 
@@ -39,7 +43,9 @@ const Transactions = () => {
     data: transactions,
     isError,
     refetch,
-  } = useQuery(key, () => listTransactions(setQuery(currMonth)));
+  } = useQuery(key, () =>
+    listTransactions<TransactionsResponse>(setQuery(currMonth)),
+  );
   const TableHeader = useBreakpointValue({
     base: (
       <Tr>
@@ -79,7 +85,7 @@ const Transactions = () => {
     <>
       <PageHeader>Transactions</PageHeader>
       <PageLayout>
-        <Flex alignItems="center" flexFlow={{ lg: "row", base: "column" }}>
+        <Flex alignItems="center" flexFlow={{ lg: 'row', base: 'column' }}>
           <Box display="flex" alignItems="center">
             <IconButton
               ariaLabel="Toggle to previous month"
@@ -89,7 +95,7 @@ const Transactions = () => {
               onClick={() => setCurrMonth(subMonths(currMonth, 1))}
             />
             <Text mx={4} minW="124px" textAlign="center">
-              {format(currMonth, "LLLL yyyy")}
+              {format(currMonth, 'LLLL yyyy')}
             </Text>
             <IconButton
               ariaLabel="Toggle to next month"
@@ -105,7 +111,7 @@ const Transactions = () => {
           </Box>
         </Flex>
         <Box my={4}>
-          {transactions?.data.length > 0 ? (
+          {transactions?.data.length ? (
             <Table variant="striped">
               <Thead>{TableHeader}</Thead>
               <Tbody>

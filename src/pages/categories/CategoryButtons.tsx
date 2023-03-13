@@ -1,8 +1,8 @@
-import PropTypes from "prop-types";
-import React from "react";
-import { MdClose, MdDelete, MdEdit, MdSave } from "react-icons/md";
+import PropTypes from 'prop-types';
+import React from 'react';
+import { MdClose, MdDelete, MdEdit, MdSave } from 'react-icons/md';
 
-import IconButton from "../../components/IconButton";
+import IconButton from '../../components/IconButton';
 
 const CategoryButtons = ({
   isHovered,
@@ -43,7 +43,7 @@ const CategoryButtons = ({
   return (
     <>
       <IconButton
-        opacity={isHovered ? "1" : "0"}
+        opacity={isHovered ? '1' : '0'}
         label="Edit Category"
         ariaLabel="Edit category"
         icon={<MdEdit />}
@@ -52,7 +52,7 @@ const CategoryButtons = ({
         onClick={onEdit}
       />
       <IconButton
-        opacity={isHovered ? "1" : "0"}
+        opacity={isHovered ? '1' : '0'}
         label="Delete Category"
         ariaLabel="Delete category"
         icon={<MdDelete />}

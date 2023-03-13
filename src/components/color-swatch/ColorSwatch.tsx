@@ -1,12 +1,12 @@
-import { Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
-import PropTypes from "prop-types";
-import React from "react";
+import { Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
+import PropTypes from 'prop-types';
+import React from 'react';
 
-import { colors } from "../../utils/constants";
-import { noop } from "../../utils/functions";
-import ColorIcon from "./ColorIcon";
+import { colors } from '../../utils/constants';
+import { noop } from '../../utils/functions';
+import ColorIcon from './ColorIcon';
 
-const ColorSwatch = ({ selected = "#CBD5E0", onSelect = noop, ...rest }) => {
+const ColorSwatch = ({ selected = '#CBD5E0', onSelect = noop, ...rest }) => {
   return (
     <Menu {...rest}>
       <MenuButton as="div">

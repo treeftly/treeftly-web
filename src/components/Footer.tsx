@@ -1,16 +1,14 @@
-import { Box, Grid } from "@chakra-ui/react";
-import PropTypes from "prop-types";
-import React from "react";
+import { Box, Grid } from '@chakra-ui/react';
 import {
   MdAdd,
   MdHome,
   MdPerson,
   MdReceipt,
   MdViewModule,
-} from "react-icons/md";
+} from 'react-icons/md';
 
-import IconButton from "./IconButton";
-import LinkText from "./LinkText";
+import IconButton from './IconButton';
+import LinkText from './LinkText';
 
 const Footer = ({ onNewTransaction }: any) => {
   return (
@@ -96,10 +94,6 @@ const Footer = ({ onNewTransaction }: any) => {
       </Box>
     </Grid>
   );
-};
-
-Footer.propTypes = {
-  onNewTransaction: PropTypes.func,
 };
 
 export default Footer;

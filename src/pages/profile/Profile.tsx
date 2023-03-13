@@ -1,13 +1,13 @@
-import { Button, Divider, Heading, Input } from "@chakra-ui/react";
-import React from "react";
-import { useForm } from "react-hook-form";
+import { Button, Divider, Heading, Input } from '@chakra-ui/react';
+import React from 'react';
+import { useForm } from 'react-hook-form';
 
-import FormComponent from "../../components/FormComponent";
-import PageLayout from "../../components/layouts/PageLayout";
-import PageHeader from "../../components/PageHeader";
-import PasswordInput from "../../components/password/PasswordInput";
-import { key, updatePassword, updateProfile } from "../../services/users";
-import { useAuth, useMutate } from "../../utils/hooks";
+import FormComponent from '../../components/FormComponent';
+import PageLayout from '../../components/layouts/PageLayout';
+import PageHeader from '../../components/PageHeader';
+import PasswordInput from '../../components/password/PasswordInput';
+import { key, updatePassword, updateProfile } from '../../services/users';
+import { useAuth, useMutate } from '../../utils/hooks';
 
 const Profie = () => {
   const {
@@ -31,17 +31,17 @@ const Profie = () => {
   const { mutate } = useMutate({
     mutateFn: updateProfile,
     key,
-    successMsg: "Successfully updated your profile",
-    failureMsg: "Failed to update your profile",
+    successMsg: 'Successfully updated your profile',
+    failureMsg: 'Failed to update your profile',
     onSuccess: (response: any) => {
       setAuthData({ ...rest, user: response });
     },
   });
   const { mutate: mutatePassword } = useMutate({
     mutateFn: updatePassword,
-    key: "password",
-    successMsg: "Successfully updated password",
-    failureMsg: "Failed to update password",
+    key: 'password',
+    successMsg: 'Successfully updated password',
+    failureMsg: 'Failed to update password',
     onSuccess: reset,
   });
 
@@ -141,8 +141,8 @@ const Profie = () => {
               name="repeatPassword"
               ref={registerPwd({
                 validate: (value) => {
-                  const password = getValues("password");
-                  return value === password || "Password does not match";
+                  const password = getValues('password');
+                  return value === password || 'Password does not match';
                 },
               })}
             />

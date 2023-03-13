@@ -1,16 +1,15 @@
-import { Button, Input, Text } from "@chakra-ui/react";
-import React from "react";
-import { Helmet } from "react-helmet-async";
-import { useForm } from "react-hook-form";
-import { useHistory } from "react-router-dom";
+import { Button, Input, Text } from '@chakra-ui/react';
+import { Helmet } from 'react-helmet-async';
+import { useForm } from 'react-hook-form';
+import { useHistory } from 'react-router-dom';
 
-import FormComponent from "../../components/FormComponent";
-import MainLayout from "../../components/layouts/MainLayout";
-import OnboardingLayout from "../../components/layouts/OnboardingLayout";
-import LinkText from "../../components/LinkText";
-import PasswordInput from "../../components/password/PasswordInput";
-import { login } from "../../services/auth";
-import { useAuth, useMutate } from "../../utils/hooks";
+import FormComponent from '../../components/FormComponent';
+import MainLayout from '../../components/layouts/MainLayout';
+import OnboardingLayout from '../../components/layouts/OnboardingLayout';
+import LinkText from '../../components/LinkText';
+import PasswordInput from '../../components/password/PasswordInput';
+import { login } from '../../services/auth';
+import { useAuth, useMutate } from '../../utils/hooks';
 
 const SignIn = () => {
   const history = useHistory();
@@ -19,13 +18,13 @@ const SignIn = () => {
   const { mutate, isLoading } = useMutate({
     mutateFn: login,
     onError: (err: any) => {
-      if (err?.response?.data?.className === "not-verified") {
-        return setError("email", {
+      if (err?.response?.data?.className === 'not-verified') {
+        return setError('email', {
           message: (
             <Text>
               <LinkText display="inline-block" href="/resend-verification">
                 verify
-              </LinkText>{" "}
+              </LinkText>{' '}
               your account and try again.
             </Text>
           ),
@@ -33,18 +32,18 @@ const SignIn = () => {
       }
 
       if (err?.response?.status === 401) {
-        return setError("email", {
-          message: "Invalid email address or password",
+        return setError('email', {
+          message: 'Invalid email address or password',
         });
       }
 
-      return setError("email", {
-        message: "Something went wrong with your request ",
+      return setError('email', {
+        message: 'Something went wrong with your request ',
       });
     },
     onSuccess: ({ accessToken, user }: any) => {
       setAuthData({ accessToken, user });
-      history.push("/");
+      history.push('/');
     },
   });
 

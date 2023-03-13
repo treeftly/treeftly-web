@@ -1,40 +1,40 @@
-import { Box, Button, Input, Text } from "@chakra-ui/react";
-import React, { useState } from "react";
-import { Helmet } from "react-helmet-async";
-import { useForm } from "react-hook-form";
+import { Box, Button, Input, Text } from '@chakra-ui/react';
+import React, { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
+import { useForm } from 'react-hook-form';
 
-import FormComponent from "../../components/FormComponent";
-import MainLayout from "../../components/layouts/MainLayout";
-import OnboardingLayout from "../../components/layouts/OnboardingLayout";
-import LinkText from "../../components/LinkText";
-import PasswordInput from "../../components/password/PasswordInput";
-import PasswordStrength from "../../components/password/PasswordStrength";
-import { register as authRegister } from "../../services/auth";
-import { useMutate } from "../../utils/hooks";
+import FormComponent from '../../components/FormComponent';
+import MainLayout from '../../components/layouts/MainLayout';
+import OnboardingLayout from '../../components/layouts/OnboardingLayout';
+import LinkText from '../../components/LinkText';
+import PasswordInput from '../../components/password/PasswordInput';
+import PasswordStrength from '../../components/password/PasswordStrength';
+import { register as authRegister } from '../../services/auth';
+import { useMutate } from '../../utils/hooks';
 
 const SignUp = () => {
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState('');
   const { register, handleSubmit, errors, setError } = useForm();
   const { mutate, isLoading, isSuccess } = useMutate({
     mutateFn: authRegister,
-    successMsg: "Account created!",
-    successDescription: "Wohoo! Verify your account to start using Treeftly.",
+    successMsg: 'Account created!',
+    successDescription: 'Wohoo! Verify your account to start using Treeftly.',
     onError: (err: any) => {
       if (err?.response?.status === 400) {
         const { data: resData } = err.response;
         switch (resData.message) {
-          case "Validation error":
-            setError("email", { message: "Email address already exists" });
+          case 'Validation error':
+            setError('email', { message: 'Email address already exists' });
             break;
           default:
-            setError("firstName", {
+            setError('firstName', {
               message: `Signup error: ${resData.message}`,
             });
         }
         return null;
       }
 
-      return setError("firstName", {
+      return setError('firstName', {
         message: `Something went wrong with the request: ${err.response?.data?.message}`,
       });
     },
@@ -45,13 +45,13 @@ const SignUp = () => {
       <Helmet>
         <title>Sign Up</title>
       </Helmet>
-      <OnboardingLayout headerText={`Sign Up ${isSuccess ? "Success" : ""}`}>
+      <OnboardingLayout headerText={`Sign Up ${isSuccess ? 'Success' : ''}`}>
         <Text textAlign="center" mb={4} color="gray.600" whiteSpace="pre-line">
           {isSuccess ? (
             <>
               <LinkText href="/sgin-in" as="span">
                 signing-in
-              </LinkText>{" "}
+              </LinkText>{' '}
             </>
           ) : (
             `Hiya! We need your information so that you,
@@ -115,7 +115,7 @@ const SignUp = () => {
             </LinkText>
             <Button
               mt={4}
-              isFullWidth
+              width="100%"
               variant="solid"
               colorScheme="primary"
               textTransform="uppercase"

@@ -1,16 +1,19 @@
-import axios, { AxiosRequestConfig } from "axios";
+import axios, {
+  AxiosError,
+  AxiosInstance,
+  AxiosRequestConfig,
+  AxiosResponse,
+} from 'axios';
 
-import { getToken, logout } from "./hooks";
+import { getToken, logout } from './hooks';
 
 const opts: AxiosRequestConfig = {};
 
-if (process.env.REACT_APP_NODE_ENV === "production") {
-  opts.baseURL = "https://api.treeftly.com";
+if (process.env.REACT_APP_NODE_ENV === 'production') {
+  opts.baseURL = 'https://api.treeftly.com';
 }
 
-const fetch = axios.create(opts);
-
-fetch.interceptors.request.use((config) => {
+function onRequest(config: AxiosRequestConfig) {
   const { accessToken } = getToken();
 
   if (accessToken) {
@@ -18,23 +21,29 @@ fetch.interceptors.request.use((config) => {
   }
 
   return config;
-});
+}
 
-fetch.interceptors.response.use(
-  (res) => {
-    return res.data;
-  },
-  (error) => {
-    const publicLinks = ["/sign-in", "/sign-up"];
-    if (
-      error?.response?.status === 401 &&
-      !publicLinks.includes(window.location.pathname)
-    ) {
-      logout();
-    }
+function onResponse<TData>(res: AxiosResponse<TData>) {
+  return res.data;
+}
 
-    return Promise.reject(error);
+function onResponseError<TError>(error: AxiosError<TError>) {
+  const publicLinks = ['/sign-in', '/sign-up'];
+  if (
+    error?.response?.status === 401 &&
+    !publicLinks.includes(window.location.pathname)
+  ) {
+    logout();
   }
-);
 
-export default fetch;
+  return Promise.reject(error);
+}
+
+function setupAxios(axiosInstance: AxiosInstance) {
+  axiosInstance.interceptors.request.use(onRequest);
+  axiosInstance.interceptors.response.use(onResponse, onResponseError);
+
+  return axiosInstance;
+}
+
+export default setupAxios(axios.create(opts));

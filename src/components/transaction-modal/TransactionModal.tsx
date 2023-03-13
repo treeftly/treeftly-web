@@ -5,29 +5,29 @@ import {
   NumberInputField,
   NumberInputStepper,
   Textarea,
-} from "@chakra-ui/react";
-import PropTypes from "prop-types";
-import React, { useContext, useEffect } from "react";
-import { Controller, useForm } from "react-hook-form";
+} from '@chakra-ui/react';
+import PropTypes from 'prop-types';
+import React, { useContext, useEffect } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 
-import { CategoriesContext } from "../../services/categories";
-import DatePicker from "../DatePicker";
-import FormComponent from "../FormComponent";
-import FormModal from "../modals/FormModal";
-import Select from "../Select";
+import { CategoriesContext } from '../../services/categories';
+import DatePicker from '../DatePicker';
+import FormComponent from '../FormComponent';
+import FormModal from '../modals/FormModal';
+import Select from '../Select';
 
 const addDots = (defaultStyle, { data }: any) => ({
   ...defaultStyle,
-  alignItems: "center",
-  display: "flex",
-  paddingTop: "6px",
-  paddingBottom: "6px",
+  alignItems: 'center',
+  display: 'flex',
+  paddingTop: '6px',
+  paddingBottom: '6px',
 
-  ":before": {
-    backgroundColor: data?.label || "#FFF",
+  ':before': {
+    backgroundColor: data?.label || '#FFF',
     borderRadius: 15,
     content: '" "',
-    display: "block",
+    display: 'block',
     marginRight: 4,
     height: 15,
     width: 15,
@@ -47,7 +47,7 @@ const TransactionModal = ({ isOpen, onClose, values, mutate }: any) => {
   const { control, register, errors, handleSubmit, setValue } = useForm({
     defaultValues: {
       date: new Date(),
-      categoryId: "",
+      categoryId: '',
       amount: defaultAmount === 0 ? undefined : defaultAmount,
       description: values?.description,
     },
@@ -64,13 +64,13 @@ const TransactionModal = ({ isOpen, onClose, values, mutate }: any) => {
 
   useEffect(() => {
     if (values?.id) {
-      setValue("amount", parseFloat(values.amount));
-      setValue("description", values?.description);
-      setValue("date", new Date(values.date));
-      setValue("categoryId", {
-        id: values["category.id"],
-        name: values["category.name"],
-        label: values["category.label"],
+      setValue('amount', parseFloat(values.amount));
+      setValue('description', values?.description);
+      setValue('date', new Date(values.date));
+      setValue('categoryId', {
+        id: values['category.id'],
+        name: values['category.name'],
+        label: values['category.label'],
       });
     }
   }, [values]);
@@ -86,7 +86,7 @@ const TransactionModal = ({ isOpen, onClose, values, mutate }: any) => {
         <Controller
           name="date"
           control={control}
-          rules={{ required: "date is required" }}
+          rules={{ required: 'date is required' }}
           render={({ onChange, value }) => (
             <DatePicker
               dateFormat="yyyy-MM-dd"
@@ -105,7 +105,7 @@ const TransactionModal = ({ isOpen, onClose, values, mutate }: any) => {
         <Controller
           name="categoryId"
           control={control}
-          rules={{ required: "category is required" }}
+          rules={{ required: 'category is required' }}
           render={({ value, onChange }) => (
             <Select
               placeholder="Select category"

@@ -1,27 +1,27 @@
-import { useEffect, useState } from "react";
-import { useMutation, useQueryClient } from "react-query";
+import { useEffect, useState } from 'react';
+import { useMutation, useQueryClient } from 'react-query';
 
-import { noop } from "./functions";
-import logger from "./logger";
-import useToast from "./toast";
+import { noop } from './functions';
+import logger from './logger';
+import useToast from './toast';
 
-const defaultAuth = { user: {}, accessToken: "" };
+const defaultAuth = { user: {}, accessToken: '' };
 
-export const localStorageKey = "auth";
+export const localStorageKey = 'auth';
 
 export const logout = () => {
   localStorage.removeItem(localStorageKey);
-  window.location.href = "/";
+  window.location.href = '/';
 };
 
 export const getToken = () => {
-  const authStr = localStorage.getItem(localStorageKey) || "";
+  const authStr = localStorage.getItem(localStorageKey) || '';
   let parsedAuth;
 
   try {
     parsedAuth = JSON.parse(authStr);
   } catch (err) {
-    logger.error("error parsing auth from localStorage: ", err);
+    logger.error('error parsing auth from localStorage: ', err);
   }
 
   return parsedAuth ?? defaultAuth;
@@ -52,16 +52,16 @@ export const useAuth = () => {
 export const useMutate = ({
   mutateFn,
   key,
-  successMsg = "",
-  successDescription = "",
-  failureMsg = "",
-  failureDescription = "",
+  successMsg = '',
+  successDescription = '',
+  failureMsg = '',
+  failureDescription = '',
   onSuccess = noop,
   onError = noop,
   onSettled = noop,
 }: any) => {
   if (!mutateFn) {
-    throw new Error("Missing argument");
+    throw new Error('Missing argument');
   }
 
   const queryClient = useQueryClient();
@@ -85,26 +85,26 @@ export const useMutate = ({
         queryClient.invalidateQueries(key);
       }
 
-      if (successMsg !== "") {
+      if (successMsg !== '') {
         toast({
           title: successMsg,
           description: successDescription,
-          status: "success",
+          status: 'success',
         });
       }
     },
     onError: (err) => {
       onError(err);
 
-      if (failureMsg !== "") {
+      if (failureMsg !== '') {
         toast({
           title: failureMsg,
           description: failureDescription,
-          status: "error",
+          status: 'error',
         });
       }
 
-      logger.error("Error on mutation", JSON.stringify(err));
+      logger.error('Error on mutation', JSON.stringify(err));
     },
     onSettled: () => {
       onSettled();

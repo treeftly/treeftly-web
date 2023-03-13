@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import Container from "./Container";
+import Container from './Container';
 
 const PageLayout = ({ children }: any) => {
   return (

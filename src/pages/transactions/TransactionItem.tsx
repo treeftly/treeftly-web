@@ -1,33 +1,32 @@
-import React from "react";
-import { useQuery } from "react-query";
-import { useHistory, useParams } from "react-router-dom";
+import { useQuery } from 'react-query';
+import { useHistory, useParams } from 'react-router-dom';
 
-import TransactionModal from "../../components/transaction-modal/TransactionModal";
+import TransactionModal from '../../components/transaction-modal/TransactionModal';
 import {
   getTransaction,
   key,
   updateTransaction,
-} from "../../services/transactions";
-import { useMutate } from "../../utils/hooks";
+} from '../../services/transactions';
+import { useMutate } from '../../utils/hooks';
 
 const TransactionItem = () => {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
   const history = useHistory();
   const { data } = useQuery(`${key}-${id}`, () => getTransaction(id));
   const { mutate } = useMutate({
     key,
     mutateFn: updateTransaction,
-    successMsg: "Successfully updated transaction",
-    failureMsg: "Failed to update transaction",
+    successMsg: 'Successfully updated transaction',
+    failureMsg: 'Failed to update transaction',
   });
 
   const onClose = () => {
-    history.push("/transactions");
+    history.push('/transactions');
   };
 
   const onSave = (payload: any) => {
     mutate({ id: data.id, ...payload });
-    history.push("/transactions");
+    history.push('/transactions');
   };
 
   return (

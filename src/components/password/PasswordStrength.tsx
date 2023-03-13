@@ -1,31 +1,31 @@
-import { Progress } from "@chakra-ui/react";
-import PropTypes from "prop-types";
-import React from "react";
-import zxcvbn from "zxcvbn";
+import { Progress } from '@chakra-ui/react';
+import PropTypes from 'prop-types';
+import React from 'react';
+import zxcvbn from 'zxcvbn';
 
 const PasswordStrength = ({ value }: any) => {
   let { score } = zxcvbn(value);
-  let color = "red";
+  let color = 'red';
   score += 1;
 
   switch (score) {
     case 1:
-      color = "red";
+      color = 'red';
       break;
     case 2:
-      color = "orange";
+      color = 'orange';
       break;
     case 3:
-      color = "yellow";
+      color = 'yellow';
       break;
     case 4:
-      color = "teal";
+      color = 'teal';
       break;
     case 5:
-      color = "green";
+      color = 'green';
       break;
     default:
-      color = "red";
+      color = 'red';
   }
 
   return <Progress value={(score / 5) * 100} size="xs" colorScheme={color} />;

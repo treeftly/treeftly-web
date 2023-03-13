@@ -1,9 +1,13 @@
-import { Link, Text } from "@chakra-ui/react";
-import PropTypes from "prop-types";
-import React from "react";
-import { Link as RLink } from "react-router-dom";
+import { Link, Text, TextProps } from '@chakra-ui/react';
+import { ReactNode } from 'react';
+import { Link as RLink } from 'react-router-dom';
 
-const LinkText = ({ href, children, ...rest }: any) => {
+interface LinkTextProps extends TextProps {
+  href: string;
+  children: ReactNode;
+}
+
+const LinkText = ({ href, children, ...rest }: LinkTextProps) => {
   return (
     <Text color="primary.600" {...rest}>
       <Link to={href} as={RLink} data-testid="link-component">
@@ -11,10 +15,6 @@ const LinkText = ({ href, children, ...rest }: any) => {
       </Link>
     </Text>
   );
-};
-
-LinkText.propTypes = {
-  href: PropTypes.string.isRequired,
 };
 
 export default LinkText;

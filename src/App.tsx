@@ -1,30 +1,30 @@
-import React, { lazy, Suspense } from "react";
-import { HelmetProvider } from "react-helmet-async";
-import { QueryClient, QueryClientProvider } from "react-query";
-import { ReactQueryDevtools } from "react-query/devtools";
-import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
+import { lazy, Suspense } from 'react';
+import { HelmetProvider } from 'react-helmet-async';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 
-import Protected from "./components/layouts/Protected";
+import Protected from './components/layouts/Protected';
 
-const SignIn = lazy(() => import("./pages/sign-in/SignIn"));
-const SignUp = lazy(() => import("./pages/sign-up/SignUp"));
-const Verify = lazy(() => import("./pages/verify/Verify"));
+const SignIn = lazy(() => import('./pages/sign-in/SignIn'));
+const SignUp = lazy(() => import('./pages/sign-up/SignUp'));
+const Verify = lazy(() => import('./pages/verify/Verify'));
 const ResendVerification = lazy(
-  () => import("./pages/verify/ResendVerification")
+  () => import('./pages/verify/ResendVerification'),
 );
 const ForgotPassword = lazy(
-  () => import("./pages/forgot-password/ForgotPassword")
+  () => import('./pages/forgot-password/ForgotPassword'),
 );
 const ResetPassword = lazy(
-  () => import("./pages/reset-password/ResetPassword")
+  () => import('./pages/reset-password/ResetPassword'),
 );
-const Dashboard = lazy(() => import("./pages/dashboard/Dashboard"));
+const Dashboard = lazy(() => import('./pages/dashboard/Dashboard'));
 
-const Transactions = lazy(() => import("./pages/transactions/Transactions"));
+const Transactions = lazy(() => import('./pages/transactions/Transactions'));
 
-const Categories = lazy(() => import("./pages/categories/Categories"));
+const Categories = lazy(() => import('./pages/categories/Categories'));
 
-const Profile = lazy(() => import("./pages/profile/Profile"));
+const Profile = lazy(() => import('./pages/profile/Profile'));
 
 const queryClient = new QueryClient();
 

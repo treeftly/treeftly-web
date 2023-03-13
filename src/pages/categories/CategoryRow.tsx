@@ -1,13 +1,13 @@
-import { Box, Input, Td, Tr, useDisclosure } from "@chakra-ui/react";
-import PropTypes from "prop-types";
-import React, { useEffect, useState } from "react";
+import { Box, Input, Td, Tr, useDisclosure } from '@chakra-ui/react';
+import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
 
-import ColorIcon from "../../components/color-swatch/ColorIcon";
-import ColorSwatch from "../../components/color-swatch/ColorSwatch";
-import { key, updateCategory } from "../../services/categories";
-import { useMutate } from "../../utils/hooks";
-import CategoryButtons from "./CategoryButtons";
-import DeleteCategory from "./DeleteCategory";
+import ColorIcon from '../../components/color-swatch/ColorIcon';
+import ColorSwatch from '../../components/color-swatch/ColorSwatch';
+import { key, updateCategory } from '../../services/categories';
+import { useMutate } from '../../utils/hooks';
+import CategoryButtons from './CategoryButtons';
+import DeleteCategory from './DeleteCategory';
 
 const CategoryRow = ({ data }: any) => {
   const {
@@ -30,8 +30,8 @@ const CategoryRow = ({ data }: any) => {
   const { mutate } = useMutate({
     mutateFn: updateCategory,
     key,
-    successMsg: "Category updated!",
-    failureMsg: "Failed to update category",
+    successMsg: 'Category updated!',
+    failureMsg: 'Failed to update category',
     onSettled: onEditCancel,
   });
 
@@ -42,7 +42,7 @@ const CategoryRow = ({ data }: any) => {
   };
 
   const onSave = () => {
-    mutate({ id: data.id, name: nameValue, label: labelValue });
+    mutate(data.id, { id: data.id, name: nameValue, label: labelValue });
   };
 
   useEffect(() => {

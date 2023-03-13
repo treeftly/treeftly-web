@@ -7,9 +7,9 @@ import {
   AlertDialogHeader,
   AlertDialogOverlay,
   Button,
-} from "@chakra-ui/react";
-import PropTypes from "prop-types";
-import React, { useRef } from "react";
+} from '@chakra-ui/react';
+import PropTypes from 'prop-types';
+import React, { useRef } from 'react';
 
 const DeleteModal = ({ header, isOpen, onClose, onDelete, children }: any) => {
   const ref = useRef();

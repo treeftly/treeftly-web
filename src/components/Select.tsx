@@ -1,13 +1,13 @@
-import { theme } from "@chakra-ui/react";
-import PropTypes from "prop-types";
-import React from "react";
-import RSelect from "react-select";
+import { theme } from '@chakra-ui/react';
+import PropTypes from 'prop-types';
+import React from 'react';
+import RSelect from 'react-select';
 
-const padding = "6px";
+const padding = '6px';
 
 const controlStyle = (defaultStyle: any) => ({
   ...defaultStyle,
-  borderColor: theme.colors.gray["200"],
+  borderColor: theme.colors.gray['200'],
 });
 const inputStyle = (defaultStyle: any) => ({
   ...defaultStyle,
@@ -38,7 +38,7 @@ const Select = React.forwardRef(({ styles = {}, ...rest }, ref: any) => {
   );
 });
 
-Select.displayName = "Select";
+Select.displayName = 'Select';
 Select.propTypes = {
   styles: PropTypes.object,
 };

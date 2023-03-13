@@ -1,17 +1,24 @@
-import PropTypes from "prop-types";
-import React from "react";
+import DeleteModal from '../../components/modals/DeleteModal';
+import { deleteTransaction, key } from '../../services/transactions';
+import { formatCurrency } from '../../utils/functions';
+import { useMutate } from '../../utils/hooks';
 
-import DeleteModal from "../../components/modals/DeleteModal";
-import { deleteTransaction, key } from "../../services/transactions";
-import { formatCurrency } from "../../utils/functions";
-import { useMutate } from "../../utils/hooks";
+type DeleteTransactionProps = {
+  data: any;
+  isOpen: boolean;
+  onClose: () => void;
+};
 
-const DeleteTransaction = ({ data, isOpen, onClose }: any) => {
+const DeleteTransaction = ({
+  data,
+  isOpen,
+  onClose,
+}: DeleteTransactionProps) => {
   const { mutate } = useMutate({
     mutateFn: deleteTransaction,
     key,
-    successMsg: "Successfully deleted transaction",
-    failureMsg: "Failed to delete transaction",
+    successMsg: 'Successfully deleted transaction',
+    failureMsg: 'Failed to delete transaction',
   });
 
   return (
@@ -24,12 +31,6 @@ const DeleteTransaction = ({ data, isOpen, onClose }: any) => {
       <strong>{formatCurrency(data.amount)}</strong>?
     </DeleteModal>
   );
-};
-
-DeleteTransaction.propTypes = {
-  data: PropTypes.object.isRequired,
-  isOpen: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
 };
 
 export default DeleteTransaction;

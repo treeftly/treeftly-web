@@ -1,16 +1,16 @@
-import PropTypes from "prop-types";
-import React from "react";
+import PropTypes from 'prop-types';
+import React from 'react';
 
-import DeleteModal from "../../components/modals/DeleteModal";
-import { deleteCategory, key } from "../../services/categories";
-import { useMutate } from "../../utils/hooks";
+import DeleteModal from '../../components/modals/DeleteModal';
+import { deleteCategory, key } from '../../services/categories';
+import { useMutate } from '../../utils/hooks';
 
 const DeleteCategory = ({ isOpen, onClose, data }: any) => {
   const { mutate } = useMutate({
     mutateFn: deleteCategory,
     key,
-    successMsg: "Successfully deleted category!",
-    failureMsg: "Failed to delete category",
+    successMsg: 'Successfully deleted category!',
+    failureMsg: 'Failed to delete category',
   });
 
   return (

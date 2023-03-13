@@ -1,8 +1,26 @@
-import { FormControl, FormErrorMessage, FormLabel } from "@chakra-ui/react";
-import PropTypes from "prop-types";
-import React from "react";
+import {
+  FormControl,
+  FormControlProps,
+  FormErrorMessage,
+  FormLabel,
+} from '@chakra-ui/react';
+import { ReactNode } from 'react';
+import { DeepMap, FieldErrors, FieldValues } from 'react-hook-form';
 
-const FormComponent = ({ label, children, id, errors, ...rest }: any) => {
+interface FormComponentProps extends FormControlProps {
+  label: string;
+  id: string;
+  errors?: DeepMap<FieldValues, FieldErrors>;
+  children: ReactNode;
+}
+
+const FormComponent = ({
+  label,
+  children,
+  id,
+  errors,
+  ...rest
+}: FormComponentProps) => {
   return (
     <FormControl id={id} {...rest} isInvalid={errors?.[id]} mb="4">
       {label && <FormLabel>{label}</FormLabel>}
@@ -12,12 +30,6 @@ const FormComponent = ({ label, children, id, errors, ...rest }: any) => {
       </FormErrorMessage>
     </FormControl>
   );
-};
-
-FormComponent.propTypes = {
-  label: PropTypes.string,
-  errors: PropTypes.object,
-  id: PropTypes.string.isRequired,
 };
 
 export default FormComponent;

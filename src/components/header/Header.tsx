@@ -8,25 +8,25 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
-} from "@chakra-ui/react";
-import PropTypes from "prop-types";
-import React from "react";
-import { MdAdd } from "react-icons/md";
-import { Link as RLink } from "react-router-dom";
+} from '@chakra-ui/react';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { MdAdd } from 'react-icons/md';
+import { Link as RLink } from 'react-router-dom';
 
-import Logo from "../../assets/logo-only.png";
-import { logout } from "../../services/auth";
-import { useAuth, useMutate } from "../../utils/hooks";
-import Hidden from "../Hidden";
-import IconButton from "../IconButton";
-import Nav from "./Nav";
-import SideNav from "./SideNav";
+import Logo from '../../assets/logo-only.png';
+import { logout } from '../../services/auth';
+import { useAuth, useMutate } from '../../utils/hooks';
+import Hidden from '../Hidden';
+import IconButton from '../IconButton';
+import Nav from './Nav';
+import SideNav from './SideNav';
 
 const Header = ({ onNewTransaction }: any) => {
   const { authData, clearAuth } = useAuth();
   const { mutate } = useMutate({
     mutateFn: logout,
-    key: "auth",
+    key: 'auth',
     onSettled: clearAuth,
   });
   const name = `${authData?.user?.firstName} ${authData?.user?.lastName}`;
@@ -37,14 +37,14 @@ const Header = ({ onNewTransaction }: any) => {
       border="1px"
       borderColor="gray.200"
       h="65px"
-      px={{ base: "2", md: "10" }}
+      px={{ base: '2', md: '10' }}
       bg="white"
     >
       <Hidden above="md">
         <SideNav />
       </Hidden>
       <Box flexShrink={1} flexBasis="100px">
-        <Link to="/" as={RLink} _focus={{ boxShadow: "none" }}>
+        <Link to="/" as={RLink} _focus={{ boxShadow: 'none' }}>
           <Image height="100%" src={Logo} alt="treeftly logo" />
         </Link>
       </Box>

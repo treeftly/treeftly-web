@@ -1,8 +1,8 @@
-import PropTypes from "prop-types";
-import React from "react";
-import { MdBrightness1 } from "react-icons/md";
+import PropTypes from 'prop-types';
+import React from 'react';
+import { MdBrightness1 } from 'react-icons/md';
 
-import IconButton from "../IconButton";
+import IconButton from '../IconButton';
 
 const ColorIcon = ({ label, color, ...rest }: any) => {
   return (

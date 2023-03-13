@@ -7,13 +7,13 @@ import {
   Flex,
   Image,
   useDisclosure,
-} from "@chakra-ui/react";
-import React from "react";
-import { MdMenu } from "react-icons/md";
+} from '@chakra-ui/react';
+import React from 'react';
+import { MdMenu } from 'react-icons/md';
 
-import LogoText from "../../assets/logo-with-text.png";
-import IconButton from "../IconButton";
-import Nav from "./Nav";
+import LogoText from '../../assets/logo-with-text.png';
+import IconButton from '../IconButton';
+import Nav from './Nav';
 
 const SideNav = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();

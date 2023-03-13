@@ -3,18 +3,18 @@ import {
   Input,
   InputGroup,
   InputRightElement,
-} from "@chakra-ui/react";
-import PropTypes from "prop-types";
-import React, { forwardRef, useState } from "react";
-import { MdVisibility, MdVisibilityOff } from "react-icons/md";
+} from '@chakra-ui/react';
+import PropTypes from 'prop-types';
+import React, { forwardRef, useState } from 'react';
+import { MdVisibility, MdVisibilityOff } from 'react-icons/md';
 
-const PasswordInput = forwardRef(({ name = "password", ...rest }, ref: any) => {
+const PasswordInput = forwardRef(({ name = 'password', ...rest }, ref: any) => {
   const [isShow, setIsShow] = useState(false);
 
   return (
     <InputGroup>
       <Input
-        type={isShow ? "text" : "password"}
+        type={isShow ? 'text' : 'password'}
         ref={ref}
         name={name}
         {...rest}
@@ -26,7 +26,7 @@ const PasswordInput = forwardRef(({ name = "password", ...rest }, ref: any) => {
           border="none"
           onClick={() => setIsShow(!isShow)}
           aria-label={
-            isShow ? "hide password visibility" : "show password visibility"
+            isShow ? 'hide password visibility' : 'show password visibility'
           }
         />
       </InputRightElement>
@@ -34,7 +34,7 @@ const PasswordInput = forwardRef(({ name = "password", ...rest }, ref: any) => {
   );
 });
 
-PasswordInput.displayName = "PasswordInput";
+PasswordInput.displayName = 'PasswordInput';
 PasswordInput.propTypes = {
   name: PropTypes.string.isRequired,
 };

@@ -1,5 +1,5 @@
-import { Grid } from "@chakra-ui/react";
-import React from "react";
+import { Grid } from '@chakra-ui/react';
+import React from 'react';
 
 const MainLayout = ({ children, ...rest }: any) => {
   return (

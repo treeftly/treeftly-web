@@ -1,7 +1,6 @@
-import { useBreakpointValue } from "@chakra-ui/react";
-import PropTypes from "prop-types";
+import { useBreakpointValue } from '@chakra-ui/react';
 
-const breakpoints = ["base", "sm", "md", "lg", "xl", "2xl"];
+const breakpoints = ['base', 'sm', 'md', 'lg', 'xl', '2xl'];
 const generateBreakpoint = (breakPoint: any, isAbove: any) => {
   const breakpointObj = {};
   const idx = breakpoints.indexOf(breakPoint);
@@ -29,11 +28,6 @@ const Hidden = ({ above, below, children }: any) => {
   }
 
   return children;
-};
-
-Hidden.propTypes = {
-  above: PropTypes.oneOf(breakpoints),
-  below: PropTypes.oneOf(breakpoints),
 };
 
 export default Hidden;

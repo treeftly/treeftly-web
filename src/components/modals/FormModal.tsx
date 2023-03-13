@@ -7,9 +7,9 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-} from "@chakra-ui/react";
-import PropTypes from "prop-types";
-import React from "react";
+} from '@chakra-ui/react';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 const FormModal = ({ isOpen, header, onSubmit, onClose, children }: any) => {
   return (
