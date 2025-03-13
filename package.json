@@ -63,6 +63,7 @@
     "prettier": "^2.1.2",
     "prop-types": "^15.7.2"
   },
+  "packageManager": "pnpm@8.15.9",
   "pnpm": {
     "overrides": {
       "node-forge@<1.0.0": ">=1.0.0",
