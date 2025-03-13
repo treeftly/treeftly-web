@@ -4,7 +4,7 @@ import { logout, getToken } from './hooks'
 const opts = {}
 
 if (process.env.REACT_APP_NODE_ENV === 'production') {
-  opts.baseURL = 'https://api.treeftly.com'
+  opts.baseURL = REACT_APP_API_URL ?? 'https://api.treeftly.com'
 }
 
 const fetch = axios.create(opts)
